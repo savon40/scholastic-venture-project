@@ -52,20 +52,23 @@ export class SignInComponent {
       .then((user: CognitoUser|any) => {
         // this._loader.hide();
         this._router.navigate(['']);
+        console.log('success!!!', user);
       })
       .catch((error: any) => {
+        alert(error.code + ': ' + error.message);
         // this._loader.hide();
         // this._notification.show(error.message);
-        switch (error.code) {
-          case "UserNotConfirmedException":
-            environment.confirm.email = this.emailInput.value;
-            environment.confirm.password = this.passwordInput.value;
-            this._router.navigate(['auth/confirm']);
-            break;
-          case "UsernameExistsException":
-            this._router.navigate(['auth/signin']);
-            break;
-        }
+        // switch (error.code) {
+
+          // case "UserNotConfirmedException":
+          //   environment.confirm.email = this.emailInput.value;
+          //   environment.confirm.password = this.passwordInput.value;
+          //   this._router.navigate(['auth/confirm']);
+          //   break;
+          // case "UsernameExistsException":
+          //   this._router.navigate(['auth/signin']);
+          //   break;
+        // }
       })
   }
 }
