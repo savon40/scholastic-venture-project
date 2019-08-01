@@ -1,0 +1,19 @@
+{
+    "venture": {
+        "awscloudformation": {
+            "AuthRoleName": "venture-venture-20190731181157-authRole",
+            "UnauthRoleArn": "arn:aws:iam::909307912652:role/venture-venture-20190731181157-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::909307912652:role/venture-venture-20190731181157-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "venture-venture-20190731181157-deployment",
+            "UnauthRoleName": "venture-venture-20190731181157-unauthRole",
+            "StackName": "venture-venture-20190731181157",
+            "StackId": "arn:aws:cloudformation:us-east-1:909307912652:stack/venture-venture-20190731181157/36bd90b0-b3e0-11e9-ab63-12989ba5c57e"
+        },
+        "categories": {
+            "auth": {
+                "venture2f243853": {}
+            }
+        }
+    }
+}
