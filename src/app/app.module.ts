@@ -7,12 +7,15 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignInComponent } from './components/auth/sign-in/sign-in.component';
+import { HomeComponent } from './components/home/home.component';
+import { AuthService } from './components/auth/auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    SignInComponent
+    SignInComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +24,7 @@ import { SignInComponent } from './components/auth/sign-in/sign-in.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AmplifyService],
+  providers: [AmplifyService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
