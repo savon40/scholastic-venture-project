@@ -3,6 +3,7 @@ import Auth, { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
 import { Hub, ICredentials } from '@aws-amplify/core';
 import { Subject, Observable } from 'rxjs';
 import { CognitoUser } from 'amazon-cognito-identity-js';
+// import { CookieService } from 'ngx-cookie';
 
 export interface NewUser {
   email: string,
@@ -20,11 +21,14 @@ export class AuthService {
   public loggedIn: boolean;
   private _authState: Subject<CognitoUser|any> = new Subject<CognitoUser|any>();
   authState: Observable<CognitoUser|any> = this._authState.asObservable();
+  loginChange: Subject<boolean> = new Subject<boolean>();
 
   public static SIGN_IN = 'signIn';
   public static SIGN_OUT = 'signOut';
 
-  constructor() {
+  constructor(
+    // private cookies: CookieService,
+  ) {
     Hub.listen('auth',(data) => {
       const { channel, payload } = data;
       if (channel === 'auth') {
@@ -38,6 +42,7 @@ export class AuthService {
       Auth.signIn(username,password)
       .then((user: CognitoUser|any) => {
         this.loggedIn = true;
+        this.loginChange.next(true);
         resolve(user);
       }).catch((error: any) => reject(error));
     });
@@ -45,7 +50,23 @@ export class AuthService {
 
   signOut(): Promise<any> {
     return Auth.signOut()
-      .then(() => this.loggedIn = false)
+      .then(() => {
+        this.loggedIn = false;
+        this.loginChange.next(false);
+      })
   }
+
+  setLoggedIn(loggedIn: boolean) {
+    this.loggedIn = loggedIn;
+    this.loginChange.next(this.loggedIn);
+  }
+
+  // setCookies (data) {
+  //   // Sets a value for given cookie key.
+  //   if ( Object.keys(data).length > 0) {
+  //     // this.cookies.putObject(this.key , data);
+  //     // this.emit(data); // emit data for application layer
+  //   }
+  // }
 
 }

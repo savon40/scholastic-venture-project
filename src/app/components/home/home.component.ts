@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  private loginSubscription: Subscription;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.loginSubscription = this.authService.loginChange.subscribe(
+      (loggedIn: boolean) => {
+        console.log('loggedin', loggedIn);
+        if (!loggedIn) {
+          this.router.navigate(['/sign-in']);
+        }
+      }
+    )
   }
 
 }

@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { CognitoUser } from '@aws-amplify/auth';
+import { Subscription } from 'rxjs';
+
 // import { NotificationService } from 'src/app/services/notification.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -12,24 +14,41 @@ import { environment } from 'src/environments/environment';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
 
   signinForm: FormGroup = new FormGroup({
     email: new FormControl('',[ Validators.email, Validators.required ]),
     password: new FormControl('', [ Validators.required, Validators.min(6) ])
   });
 
-  hide = true;
+  private loginSubscription: Subscription;
+
 
   get emailInput() { return this.signinForm.get('email'); }
   get passwordInput() { return this.signinForm.get('password'); }
 
   constructor(
-    public auth: AuthService,
+    private authService: AuthService,
     // private _notification: NotificationService,
-    private _router: Router,
+    private router: Router,
     // private _loader: LoaderService
   ) { }
+
+  ngOnInit() {
+    console.log('authstate: ', this.authService.authState);
+    if (this.authService.loggedIn) {
+      this.router.navigate(['']);
+    }
+
+    this.loginSubscription = this.authService.loginChange.subscribe(
+      (loggedIn: boolean) => {
+        console.log('loggedin', loggedIn);
+        if (loggedIn) {
+          this.router.navigate(['']);
+        }
+      }
+    )
+  }
 
   getEmailInputError() {
     if (this.emailInput.hasError('email')) {
@@ -48,10 +67,11 @@ export class SignInComponent {
 
   signIn() {
     // this._loader.show();
-    this.auth.signIn(this.emailInput.value, this.passwordInput.value)
+    this.authService.signIn(this.emailInput.value, this.passwordInput.value)
       .then((user: CognitoUser|any) => {
         // this._loader.hide();
-        this._router.navigate(['']);
+        // window.location.reload();
+        this.router.navigate(['']);
         console.log('success!!!', user);
       })
       .catch((error: any) => {
@@ -63,10 +83,10 @@ export class SignInComponent {
           // case "UserNotConfirmedException":
           //   environment.confirm.email = this.emailInput.value;
           //   environment.confirm.password = this.passwordInput.value;
-          //   this._router.navigate(['auth/confirm']);
+          //   this.router.navigate(['authService/confirm']);
           //   break;
           // case "UsernameExistsException":
-          //   this._router.navigate(['auth/signin']);
+          //   this.router.navigate(['authService/signin']);
           //   break;
         // }
       })
