@@ -10,7 +10,11 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  student_list: String[] = [
+    'Steve Avon', 'Cris Bouidel', 'Sean Caesar'
+  ]
   private loginSubscription: Subscription;
+
 
   constructor(
     private authService: AuthService,

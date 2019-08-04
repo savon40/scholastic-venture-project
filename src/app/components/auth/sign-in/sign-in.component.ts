@@ -16,25 +16,26 @@ import { environment } from 'src/environments/environment';
 })
 export class SignInComponent implements OnInit {
 
-  signinForm: FormGroup = new FormGroup({
-    email: new FormControl('',[ Validators.email, Validators.required ]),
-    password: new FormControl('', [ Validators.required, Validators.min(6) ])
-  });
-
   private loginSubscription: Subscription;
+  isLoading = false;
 
+  signinForm;
 
   get emailInput() { return this.signinForm.get('email'); }
   get passwordInput() { return this.signinForm.get('password'); }
 
   constructor(
     private authService: AuthService,
-    // private _notification: NotificationService,
-    private router: Router,
-    // private _loader: LoaderService
+    private router: Router
   ) { }
 
   ngOnInit() {
+
+    this.signinForm = new FormGroup({
+      email: new FormControl('',[ Validators.email, Validators.required ]),
+      password: new FormControl('', [ Validators.required, Validators.min(6) ])
+    });
+
     console.log('authstate: ', this.authService.authState);
     if (this.authService.loggedIn) {
       this.router.navigate(['']);
@@ -66,29 +67,16 @@ export class SignInComponent implements OnInit {
   }
 
   signIn() {
-    // this._loader.show();
+    this.isLoading = true;
     this.authService.signIn(this.emailInput.value, this.passwordInput.value)
       .then((user: CognitoUser|any) => {
-        // this._loader.hide();
-        // window.location.reload();
+        this.signinForm.reset();
         this.router.navigate(['']);
-        console.log('success!!!', user);
+        this.isLoading = false;
       })
       .catch((error: any) => {
+        this.isLoading = false;
         alert(error.code + ': ' + error.message);
-        // this._loader.hide();
-        // this._notification.show(error.message);
-        // switch (error.code) {
-
-          // case "UserNotConfirmedException":
-          //   environment.confirm.email = this.emailInput.value;
-          //   environment.confirm.password = this.passwordInput.value;
-          //   this.router.navigate(['authService/confirm']);
-          //   break;
-          // case "UsernameExistsException":
-          //   this.router.navigate(['authService/signin']);
-          //   break;
-        // }
       })
   }
 }

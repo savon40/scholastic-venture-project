@@ -29,12 +29,12 @@ export class AuthService {
   constructor(
     // private cookies: CookieService,
   ) {
-    Hub.listen('auth',(data) => {
-      const { channel, payload } = data;
-      if (channel === 'auth') {
-        this._authState.next(payload.event);
-      }
-    });
+    // Hub.listen('auth',(data) => {
+    //   const { channel, payload } = data;
+    //   if (channel === 'auth') {
+    //     this._authState.next(payload.event);
+    //   }
+    // });
   }
 
   signIn(username: string, password: string):Promise<CognitoUser|any> {
@@ -60,13 +60,4 @@ export class AuthService {
     this.loggedIn = loggedIn;
     this.loginChange.next(this.loggedIn);
   }
-
-  // setCookies (data) {
-  //   // Sets a value for given cookie key.
-  //   if ( Object.keys(data).length > 0) {
-  //     // this.cookies.putObject(this.key , data);
-  //     // this.emit(data); // emit data for application layer
-  //   }
-  // }
-
 }
