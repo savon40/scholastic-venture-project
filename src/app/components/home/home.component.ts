@@ -36,7 +36,11 @@ export class HomeComponent implements OnInit {
   }
 
   changeStudent(event: any) {
-    if (event) {
+    if (event === 'Select A Student') {
+      this.student_selected = false;
+      this.selected_student_name = null;
+    }
+    else if (event) {
       this.student_selected = true;
       this.selected_student_name = event;
     }

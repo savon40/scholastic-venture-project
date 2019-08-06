@@ -1,29 +1,9 @@
 <nav class="navbar bg-primary">
   <a class="navbar-brand text-light" href="#">Scholastic Wellness</a>
-  <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button> -->
-  <!-- <ul class="nav justify-content-end">
-    <li class="nav-item" *ngIf="showLogoutButton">
-      <p (click)="signOut();" style="cursor: pointer;">Logout</p>
 
-    </li>
-  </ul> -->
   <ul class="nav justify-content-end">
-      <li class="nav-item">
-          <p (click)="signOut();" class="text-light" style="cursor: pointer; margin-top: 5px; margin-bottom: 0">Logout</p>
-
-        <!-- <a class="nav-link active" href="#">Active</a> -->
-      </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </li> -->
-    </ul>
+    <li *ngIf="showLogoutButton" class="nav-item">
+      <p (click)="signOut();" class="text-light" style="cursor: pointer; margin-top: 5px; margin-bottom: 0">Logout</p>
+    </li>
+  </ul>
 </nav>
