@@ -29,6 +29,7 @@ export class NavComponent implements OnInit {
 
   signOut() {
     this.authService.signOut();
+    this.showLogoutButton = false;
     this.router.navigate(['/sign-in']);
   }
 

@@ -11,6 +11,8 @@ import { API } from 'aws-amplify';
 })
 export class HomeComponent implements OnInit {
 
+  student_selected = false;
+  selected_student_name: String;
   student_list: String[] = [
     'Steve Avon', 'Cris Bouidel', 'Sean Caesar'
   ]
@@ -31,6 +33,13 @@ export class HomeComponent implements OnInit {
       }
     )
     // this.getStudents();
+  }
+
+  changeStudent(event: any) {
+    if (event) {
+      this.student_selected = true;
+      this.selected_student_name = event;
+    }
   }
 
   getStudents() {

@@ -1,22 +1,29 @@
 <div class="container">
   <div class="row">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let student of student_list">
-          <th scope="row">{{student}}</th>
-          <td>
-              <button type="button" class="btn btn-secondary">View History</button>
-              <button type="button" class="btn btn-primary">Fill out Form</button>
-              <button type="button" class="btn btn-secondary">Email Parent(s)</button>
-            </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="jumbotron mt-5 mx-auto">
+
+      <div class="form-row">
+        <div class="col-7">
+          <select class="custom-select w-50" (change)="changeStudent($event.target.value)">
+            <option selected>Select A Student</option>
+            <option *ngFor="let student of student_list" value="{{student}}">{{student}}</option>
+          </select>
+        </div>
+        <div *ngIf="student_selected" class="col-5" style="text-align: right;">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary">Fill out Form</button>
+            <button type="button" class="btn btn-secondary">Email Parent(s)</button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="student_selected" class="mt-5" style="width: 800px;">
+        <p>{{selected_student_name}} chart:</p>
+        <img src="assets/line-chart.png" alt="Responsive image" style="width: 100%">
+      </div>
+      <div *ngIf="!student_selected" class="mt-5 bg-light" style="width: 800px; padding: 50px 0;">
+        <p class="text-center">Select a student to view historical data</p>
+      </div>
+    </div>
   </div>
 </div>
