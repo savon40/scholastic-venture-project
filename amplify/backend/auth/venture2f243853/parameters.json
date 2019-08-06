@@ -1,6 +1,6 @@
 {
     "identityPoolName": "venture2f243853_identitypool_2f243853",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "lambdaLogPolicy": "ventur_2f243853_lambda_log_policy",
     "openIdLambdaRoleName": "ventur_2f243853_openid_lambda_role",
     "openIdRolePolicy": "ventur_2f243853_openid_pass_role_policy",

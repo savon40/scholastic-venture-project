@@ -1,0 +1,44 @@
+{
+    "paths": [
+        {
+            "name": "/students",
+            "lambdaFunction": "ventured7a63913",
+            "privacy": {
+                "protected": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ],
+                "unauth": [
+                    "/GET"
+                ]
+            }
+        }
+    ],
+    "resourceName": "ventureAPI",
+    "apiName": "ventureAPI",
+    "functionArns": [
+        {
+            "lambdaFunction": "ventured7a63913"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 1,
+        "authRoleName": "venture-venture-20190731181157-authRole",
+        "unAuthRoleName": "venture-venture-20190731181157-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "ventured7a63913",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

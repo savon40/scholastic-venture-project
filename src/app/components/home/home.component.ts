@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
         }
       }
     )
-    // this.getStudents();
+    this.getStudents();
   }
 
   changeStudent(event: any) {
@@ -92,11 +92,13 @@ export class HomeComponent implements OnInit {
     }
 
     API.get('ventureAPI', '/students', myInit).then(response => {
-      debugger;
+      console.log('response', response);
+      // debugger;
       // Add your code here
     }).catch(error => {
-      console.log(error.response);
-      debugger;
+      console.log('error', error);
+      console.log('error response', error.response);
+      // debugger;
     });
   }
 
