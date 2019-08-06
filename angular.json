@@ -53,7 +53,8 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.js"
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/chart.js/dist/Chart.bundle.min.js"
             ],
             "es5BrowserSupport": true
           },
