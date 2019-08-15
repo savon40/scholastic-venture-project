@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
-import { API } from 'aws-amplify';
+import Amplify, { API, graphqlOperation } from 'aws-amplify';
+import * as queries from '../../../graphql/queries';
+
+
 
 @Component({
   selector: 'app-home',
@@ -13,9 +16,10 @@ export class HomeComponent implements OnInit {
 
   student_selected = false;
   selected_student_name: String;
-  student_list: String[] = [
-    'Steve Avon', 'Cris Bouidel', 'Sean Caesar'
-  ]
+  // student_list: String[] = [
+  //   'Steve Avon', 'Cris Bouidel', 'Sean Caesar'
+  // ]
+  student_list = [];
   private loginSubscription: Subscription;
 
   //bar chart
@@ -83,22 +87,16 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  getStudents() {
-    let myInit = { // OPTIONAL
-      headers: {}, // OPTIONAL
-      response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
-      queryStringParameters: {  // OPTIONAL
-      }
-    }
-
-    API.get('ventureAPI', '/students', myInit).then(response => {
-      console.log('response', response);
-      // debugger;
-      // Add your code here
-    }).catch(error => {
-      console.log('error', error);
-      console.log('error response', error.response);
-      // debugger;
+  async getStudents() {
+    console.log('here students');
+    await API.graphql(graphqlOperation(queries.listStudents)).then(students => {
+      console.log('students', students);
+      this.student_list = students['data']['listStudents']['items'];
+      console.log('student_list', this.student_list);
+      // for (const student of students['data']['listStudents']['items']) {
+      //   console.log('project', project);
+      //   // this.getProject(project['id']);
+      // }
     });
   }
 
