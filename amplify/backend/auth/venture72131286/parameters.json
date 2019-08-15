@@ -1,12 +1,12 @@
 {
-    "identityPoolName": "venture2f243853_identitypool_2f243853",
-    "allowUnauthenticatedIdentities": true,
-    "lambdaLogPolicy": "ventur_2f243853_lambda_log_policy",
-    "openIdLambdaRoleName": "ventur_2f243853_openid_lambda_role",
-    "openIdRolePolicy": "ventur_2f243853_openid_pass_role_policy",
-    "openIdLambdaIAMPolicy": "ventur_2f243853_openid_lambda_iam_policy",
-    "openIdLogPolicy": "ventur_2f243853_openid_lambda_log_policy",
-    "userPoolName": "venture2f243853_userpool_2f243853",
+    "identityPoolName": "venture72131286_identitypool_72131286",
+    "allowUnauthenticatedIdentities": false,
+    "lambdaLogPolicy": "ventur_72131286_lambda_log_policy",
+    "openIdLambdaRoleName": "ventur_72131286_openid_lambda_role",
+    "openIdRolePolicy": "ventur_72131286_openid_pass_role_policy",
+    "openIdLambdaIAMPolicy": "ventur_72131286_openid_lambda_iam_policy",
+    "openIdLogPolicy": "ventur_72131286_openid_lambda_log_policy",
+    "userPoolName": "venture72131286_userpool_72131286",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -14,9 +14,9 @@
     "mfaTypes": [
         "SMS Text Message"
     ],
-    "roleName": "ventur2f243853_sns-role",
-    "roleExternalId": "ventur2f243853_role_external_id",
-    "policyName": "ventur2f243853-sns-policy",
+    "roleName": "ventur72131286_sns-role",
+    "roleExternalId": "ventur72131286_role_external_id",
+    "policyName": "ventur72131286-sns-policy",
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
     "emailVerificationSubject": "Your verification code",
@@ -27,7 +27,7 @@
     "requiredAttributes": [
         "email"
     ],
-    "userpoolClientName": "ventur2f243853_app_client",
+    "userpoolClientName": "ventur72131286_app_client",
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
@@ -36,15 +36,15 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "mfaLambdaRole": "ventur2f243853_totp_lambda_role",
-    "mfaLambdaLogPolicy": "ventur2f243853_totp_lambda_log_policy",
-    "mfaPassRolePolicy": "ventur2f243853_totp_pass_role_policy",
-    "mfaLambdaIAMPolicy": "ventur2f243853_totp_lambda_iam_policy",
-    "userpoolClientLambdaRole": "ventur2f243853_userpoolclient_lambda_role",
-    "userpoolClientLogPolicy": "ventur2f243853_userpoolclient_lambda_log_policy",
-    "userpoolClientLambdaPolicy": "ventur2f243853_userpoolclient_lambda_iam_policy",
+    "mfaLambdaRole": "ventur72131286_totp_lambda_role",
+    "mfaLambdaLogPolicy": "ventur72131286_totp_lambda_log_policy",
+    "mfaPassRolePolicy": "ventur72131286_totp_pass_role_policy",
+    "mfaLambdaIAMPolicy": "ventur72131286_totp_lambda_iam_policy",
+    "userpoolClientLambdaRole": "ventur72131286_userpoolclient_lambda_role",
+    "userpoolClientLogPolicy": "ventur72131286_userpoolclient_lambda_log_policy",
+    "userpoolClientLambdaPolicy": "ventur72131286_userpoolclient_lambda_iam_policy",
     "userpoolClientSetAttributes": false,
-    "resourceName": "venture2f243853",
+    "resourceName": "venture72131286",
     "authSelections": "identityPoolAndUserPool",
     "authRoleName": {
         "Ref": "AuthRoleName"

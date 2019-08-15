@@ -6,70 +6,20 @@
 		}
 	},
 	"auth": {
-		"venture2f243853": {
+		"venture72131286": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation"
 		}
 	},
-	"storage": {
-		"dynamo27b35205": {
-			"service": "DynamoDB",
-			"providerPlugin": "awscloudformation"
-		}
-	},
-	"function": {
-		"ventured7a63913": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true,
-			"dependsOn": [
-				{
-					"category": "storage",
-					"resourceName": "dynamo27b35205",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				},
-				{
-					"category": "hosting",
-					"resourceName": "S3AndCloudFront",
-					"attributes": [
-						"HostingBucketName"
-					]
-				},
-				{
-					"category": "auth",
-					"resourceName": "venture2f243853",
-					"attributes": [
-						"UserPoolId"
-					]
-				},
-				{
-					"category": "storage",
-					"resourceName": "dynamo27b35205",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				}
-			]
-		}
-	},
+	"storage": {},
+	"function": {},
 	"api": {
-		"ventureAPI": {
-			"service": "API Gateway",
+		"venture": {
+			"service": "AppSync",
 			"providerPlugin": "awscloudformation",
-			"dependsOn": [
-				{
-					"category": "function",
-					"resourceName": "ventured7a63913",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				}
-			]
+			"output": {
+				"securityType": "AMAZON_COGNITO_USER_POOLS"
+			}
 		}
 	}
 }

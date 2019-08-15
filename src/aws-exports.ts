@@ -5,25 +5,14 @@ const awsmobile = {
   "aws_content_delivery_bucket": "venture-project-bucket-venture",
   "aws_content_delivery_bucket_region": "us-east-1",
   "aws_content_delivery_url": "http://venture-project-bucket-venture.s3-website-us-east-1.amazonaws.com",
-  "aws_cognito_identity_pool_id": "us-east-1:a5050263-39ec-4fb8-9fbc-297f9e3cec6d",
+  "aws_cognito_identity_pool_id": "us-east-1:8043a41f-4d72-4e33-a230-9a91c6e1aeca",
   "aws_cognito_region": "us-east-1",
-  "aws_user_pools_id": "us-east-1_0V55cOr1E",
-  "aws_user_pools_web_client_id": "1n72vg42i4uqe40of96lk4uvf9",
+  "aws_user_pools_id": "us-east-1_dk2kAIw7p",
+  "aws_user_pools_web_client_id": "7gtk7t5r024nonojjfcto8g680",
   "oauth": {},
-  "aws_dynamodb_all_tables_region": "us-east-1",
-  "aws_dynamodb_table_schemas": [
-      {
-          "tableName": "students-venture",
-          "region": "us-east-1"
-      }
-  ],
-  "aws_cloud_logic_custom": [
-      {
-          "name": "ventureAPI",
-          "endpoint": "https://uadf7h6ckl.execute-api.us-east-1.amazonaws.com/venture",
-          "region": "us-east-1"
-      }
-  ]
+  "aws_appsync_graphqlEndpoint": "https://2ilcalho2vebhprvq4m4nvvkzm.appsync-api.us-east-1.amazonaws.com/graphql",
+  "aws_appsync_region": "us-east-1",
+  "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS"
 };
 
 
