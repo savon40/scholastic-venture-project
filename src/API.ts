@@ -50,14 +50,32 @@ export type DeleteSurveyResponseInput = {
 export type CreateSurveyQuestionInput = {
   id?: string | null,
   question?: string | null,
+  responseType?: string | null,
 };
 
 export type UpdateSurveyQuestionInput = {
   id: string,
   question?: string | null,
+  responseType?: string | null,
 };
 
 export type DeleteSurveyQuestionInput = {
+  id?: string | null,
+};
+
+export type CreatePossibleQuestionAnswerInput = {
+  id?: string | null,
+  answer?: string | null,
+  possibleQuestionAnswerQuestionId?: string | null,
+};
+
+export type UpdatePossibleQuestionAnswerInput = {
+  id: string,
+  answer?: string | null,
+  possibleQuestionAnswerQuestionId?: string | null,
+};
+
+export type DeletePossibleQuestionAnswerInput = {
   id?: string | null,
 };
 
@@ -113,9 +131,18 @@ export type ModelSurveyResponseFilterInput = {
 export type ModelSurveyQuestionFilterInput = {
   id?: ModelIDFilterInput | null,
   question?: ModelStringFilterInput | null,
+  responseType?: ModelStringFilterInput | null,
   and?: Array< ModelSurveyQuestionFilterInput | null > | null,
   or?: Array< ModelSurveyQuestionFilterInput | null > | null,
   not?: ModelSurveyQuestionFilterInput | null,
+};
+
+export type ModelPossibleQuestionAnswerFilterInput = {
+  id?: ModelIDFilterInput | null,
+  answer?: ModelStringFilterInput | null,
+  and?: Array< ModelPossibleQuestionAnswerFilterInput | null > | null,
+  or?: Array< ModelPossibleQuestionAnswerFilterInput | null > | null,
+  not?: ModelPossibleQuestionAnswerFilterInput | null,
 };
 
 export type CreateStudentMutationVariables = {
@@ -291,8 +318,13 @@ export type CreateSurveyResponseMutation = {
       __typename: "SurveyQuestion",
       id: string,
       question: string | null,
+      responseType: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
+        nextToken: string | null,
+      } | null,
+      possibleAnswers:  {
+        __typename: "ModelPossibleQuestionAnswerConnection",
         nextToken: string | null,
       } | null,
     } | null,
@@ -325,8 +357,13 @@ export type UpdateSurveyResponseMutation = {
       __typename: "SurveyQuestion",
       id: string,
       question: string | null,
+      responseType: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
+        nextToken: string | null,
+      } | null,
+      possibleAnswers:  {
+        __typename: "ModelPossibleQuestionAnswerConnection",
         nextToken: string | null,
       } | null,
     } | null,
@@ -359,8 +396,13 @@ export type DeleteSurveyResponseMutation = {
       __typename: "SurveyQuestion",
       id: string,
       question: string | null,
+      responseType: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
+        nextToken: string | null,
+      } | null,
+      possibleAnswers:  {
+        __typename: "ModelPossibleQuestionAnswerConnection",
         nextToken: string | null,
       } | null,
     } | null,
@@ -376,12 +418,22 @@ export type CreateSurveyQuestionMutation = {
     __typename: "SurveyQuestion",
     id: string,
     question: string | null,
+    responseType: string | null,
     responses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
         __typename: "SurveyResponse",
         id: string,
         response: string | null,
+      } | null > | null,
+      nextToken: string | null,
+    } | null,
+    possibleAnswers:  {
+      __typename: "ModelPossibleQuestionAnswerConnection",
+      items:  Array< {
+        __typename: "PossibleQuestionAnswer",
+        id: string,
+        answer: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -397,12 +449,22 @@ export type UpdateSurveyQuestionMutation = {
     __typename: "SurveyQuestion",
     id: string,
     question: string | null,
+    responseType: string | null,
     responses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
         __typename: "SurveyResponse",
         id: string,
         response: string | null,
+      } | null > | null,
+      nextToken: string | null,
+    } | null,
+    possibleAnswers:  {
+      __typename: "ModelPossibleQuestionAnswerConnection",
+      items:  Array< {
+        __typename: "PossibleQuestionAnswer",
+        id: string,
+        answer: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -418,6 +480,7 @@ export type DeleteSurveyQuestionMutation = {
     __typename: "SurveyQuestion",
     id: string,
     question: string | null,
+    responseType: string | null,
     responses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
@@ -426,6 +489,93 @@ export type DeleteSurveyQuestionMutation = {
         response: string | null,
       } | null > | null,
       nextToken: string | null,
+    } | null,
+    possibleAnswers:  {
+      __typename: "ModelPossibleQuestionAnswerConnection",
+      items:  Array< {
+        __typename: "PossibleQuestionAnswer",
+        id: string,
+        answer: string | null,
+      } | null > | null,
+      nextToken: string | null,
+    } | null,
+  } | null,
+};
+
+export type CreatePossibleQuestionAnswerMutationVariables = {
+  input: CreatePossibleQuestionAnswerInput,
+};
+
+export type CreatePossibleQuestionAnswerMutation = {
+  createPossibleQuestionAnswer:  {
+    __typename: "PossibleQuestionAnswer",
+    id: string,
+    answer: string | null,
+    question:  {
+      __typename: "SurveyQuestion",
+      id: string,
+      question: string | null,
+      responseType: string | null,
+      responses:  {
+        __typename: "ModelSurveyResponseConnection",
+        nextToken: string | null,
+      } | null,
+      possibleAnswers:  {
+        __typename: "ModelPossibleQuestionAnswerConnection",
+        nextToken: string | null,
+      } | null,
+    } | null,
+  } | null,
+};
+
+export type UpdatePossibleQuestionAnswerMutationVariables = {
+  input: UpdatePossibleQuestionAnswerInput,
+};
+
+export type UpdatePossibleQuestionAnswerMutation = {
+  updatePossibleQuestionAnswer:  {
+    __typename: "PossibleQuestionAnswer",
+    id: string,
+    answer: string | null,
+    question:  {
+      __typename: "SurveyQuestion",
+      id: string,
+      question: string | null,
+      responseType: string | null,
+      responses:  {
+        __typename: "ModelSurveyResponseConnection",
+        nextToken: string | null,
+      } | null,
+      possibleAnswers:  {
+        __typename: "ModelPossibleQuestionAnswerConnection",
+        nextToken: string | null,
+      } | null,
+    } | null,
+  } | null,
+};
+
+export type DeletePossibleQuestionAnswerMutationVariables = {
+  input: DeletePossibleQuestionAnswerInput,
+};
+
+export type DeletePossibleQuestionAnswerMutation = {
+  deletePossibleQuestionAnswer:  {
+    __typename: "PossibleQuestionAnswer",
+    id: string,
+    answer: string | null,
+    question:  {
+      __typename: "SurveyQuestion",
+      id: string,
+      question: string | null,
+      responseType: string | null,
+      responses:  {
+        __typename: "ModelSurveyResponseConnection",
+        nextToken: string | null,
+      } | null,
+      possibleAnswers:  {
+        __typename: "ModelPossibleQuestionAnswerConnection",
+        nextToken: string | null,
+      } | null,
     } | null,
   } | null,
 };
@@ -553,8 +703,13 @@ export type GetSurveyResponseQuery = {
       __typename: "SurveyQuestion",
       id: string,
       question: string | null,
+      responseType: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
+        nextToken: string | null,
+      } | null,
+      possibleAnswers:  {
+        __typename: "ModelPossibleQuestionAnswerConnection",
         nextToken: string | null,
       } | null,
     } | null,
@@ -582,6 +737,7 @@ export type ListSurveyResponsesQuery = {
         __typename: "SurveyQuestion",
         id: string,
         question: string | null,
+        responseType: string | null,
       } | null,
     } | null > | null,
     nextToken: string | null,
@@ -597,12 +753,22 @@ export type GetSurveyQuestionQuery = {
     __typename: "SurveyQuestion",
     id: string,
     question: string | null,
+    responseType: string | null,
     responses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
         __typename: "SurveyResponse",
         id: string,
         response: string | null,
+      } | null > | null,
+      nextToken: string | null,
+    } | null,
+    possibleAnswers:  {
+      __typename: "ModelPossibleQuestionAnswerConnection",
+      items:  Array< {
+        __typename: "PossibleQuestionAnswer",
+        id: string,
+        answer: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -622,9 +788,64 @@ export type ListSurveyQuestionsQuery = {
       __typename: "SurveyQuestion",
       id: string,
       question: string | null,
+      responseType: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
+      } | null,
+      possibleAnswers:  {
+        __typename: "ModelPossibleQuestionAnswerConnection",
+        nextToken: string | null,
+      } | null,
+    } | null > | null,
+    nextToken: string | null,
+  } | null,
+};
+
+export type GetPossibleQuestionAnswerQueryVariables = {
+  id: string,
+};
+
+export type GetPossibleQuestionAnswerQuery = {
+  getPossibleQuestionAnswer:  {
+    __typename: "PossibleQuestionAnswer",
+    id: string,
+    answer: string | null,
+    question:  {
+      __typename: "SurveyQuestion",
+      id: string,
+      question: string | null,
+      responseType: string | null,
+      responses:  {
+        __typename: "ModelSurveyResponseConnection",
+        nextToken: string | null,
+      } | null,
+      possibleAnswers:  {
+        __typename: "ModelPossibleQuestionAnswerConnection",
+        nextToken: string | null,
+      } | null,
+    } | null,
+  } | null,
+};
+
+export type ListPossibleQuestionAnswersQueryVariables = {
+  filter?: ModelPossibleQuestionAnswerFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListPossibleQuestionAnswersQuery = {
+  listPossibleQuestionAnswers:  {
+    __typename: "ModelPossibleQuestionAnswerConnection",
+    items:  Array< {
+      __typename: "PossibleQuestionAnswer",
+      id: string,
+      answer: string | null,
+      question:  {
+        __typename: "SurveyQuestion",
+        id: string,
+        question: string | null,
+        responseType: string | null,
       } | null,
     } | null > | null,
     nextToken: string | null,
@@ -776,8 +997,13 @@ export type OnCreateSurveyResponseSubscription = {
       __typename: "SurveyQuestion",
       id: string,
       question: string | null,
+      responseType: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
+        nextToken: string | null,
+      } | null,
+      possibleAnswers:  {
+        __typename: "ModelPossibleQuestionAnswerConnection",
         nextToken: string | null,
       } | null,
     } | null,
@@ -806,8 +1032,13 @@ export type OnUpdateSurveyResponseSubscription = {
       __typename: "SurveyQuestion",
       id: string,
       question: string | null,
+      responseType: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
+        nextToken: string | null,
+      } | null,
+      possibleAnswers:  {
+        __typename: "ModelPossibleQuestionAnswerConnection",
         nextToken: string | null,
       } | null,
     } | null,
@@ -836,8 +1067,13 @@ export type OnDeleteSurveyResponseSubscription = {
       __typename: "SurveyQuestion",
       id: string,
       question: string | null,
+      responseType: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
+        nextToken: string | null,
+      } | null,
+      possibleAnswers:  {
+        __typename: "ModelPossibleQuestionAnswerConnection",
         nextToken: string | null,
       } | null,
     } | null,
@@ -849,12 +1085,22 @@ export type OnCreateSurveyQuestionSubscription = {
     __typename: "SurveyQuestion",
     id: string,
     question: string | null,
+    responseType: string | null,
     responses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
         __typename: "SurveyResponse",
         id: string,
         response: string | null,
+      } | null > | null,
+      nextToken: string | null,
+    } | null,
+    possibleAnswers:  {
+      __typename: "ModelPossibleQuestionAnswerConnection",
+      items:  Array< {
+        __typename: "PossibleQuestionAnswer",
+        id: string,
+        answer: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -866,12 +1112,22 @@ export type OnUpdateSurveyQuestionSubscription = {
     __typename: "SurveyQuestion",
     id: string,
     question: string | null,
+    responseType: string | null,
     responses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
         __typename: "SurveyResponse",
         id: string,
         response: string | null,
+      } | null > | null,
+      nextToken: string | null,
+    } | null,
+    possibleAnswers:  {
+      __typename: "ModelPossibleQuestionAnswerConnection",
+      items:  Array< {
+        __typename: "PossibleQuestionAnswer",
+        id: string,
+        answer: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -883,6 +1139,7 @@ export type OnDeleteSurveyQuestionSubscription = {
     __typename: "SurveyQuestion",
     id: string,
     question: string | null,
+    responseType: string | null,
     responses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
@@ -891,6 +1148,81 @@ export type OnDeleteSurveyQuestionSubscription = {
         response: string | null,
       } | null > | null,
       nextToken: string | null,
+    } | null,
+    possibleAnswers:  {
+      __typename: "ModelPossibleQuestionAnswerConnection",
+      items:  Array< {
+        __typename: "PossibleQuestionAnswer",
+        id: string,
+        answer: string | null,
+      } | null > | null,
+      nextToken: string | null,
+    } | null,
+  } | null,
+};
+
+export type OnCreatePossibleQuestionAnswerSubscription = {
+  onCreatePossibleQuestionAnswer:  {
+    __typename: "PossibleQuestionAnswer",
+    id: string,
+    answer: string | null,
+    question:  {
+      __typename: "SurveyQuestion",
+      id: string,
+      question: string | null,
+      responseType: string | null,
+      responses:  {
+        __typename: "ModelSurveyResponseConnection",
+        nextToken: string | null,
+      } | null,
+      possibleAnswers:  {
+        __typename: "ModelPossibleQuestionAnswerConnection",
+        nextToken: string | null,
+      } | null,
+    } | null,
+  } | null,
+};
+
+export type OnUpdatePossibleQuestionAnswerSubscription = {
+  onUpdatePossibleQuestionAnswer:  {
+    __typename: "PossibleQuestionAnswer",
+    id: string,
+    answer: string | null,
+    question:  {
+      __typename: "SurveyQuestion",
+      id: string,
+      question: string | null,
+      responseType: string | null,
+      responses:  {
+        __typename: "ModelSurveyResponseConnection",
+        nextToken: string | null,
+      } | null,
+      possibleAnswers:  {
+        __typename: "ModelPossibleQuestionAnswerConnection",
+        nextToken: string | null,
+      } | null,
+    } | null,
+  } | null,
+};
+
+export type OnDeletePossibleQuestionAnswerSubscription = {
+  onDeletePossibleQuestionAnswer:  {
+    __typename: "PossibleQuestionAnswer",
+    id: string,
+    answer: string | null,
+    question:  {
+      __typename: "SurveyQuestion",
+      id: string,
+      question: string | null,
+      responseType: string | null,
+      responses:  {
+        __typename: "ModelSurveyResponseConnection",
+        nextToken: string | null,
+      } | null,
+      possibleAnswers:  {
+        __typename: "ModelPossibleQuestionAnswerConnection",
+        nextToken: string | null,
+      } | null,
     } | null,
   } | null,
 };

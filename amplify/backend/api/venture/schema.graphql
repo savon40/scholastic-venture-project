@@ -6,16 +6,26 @@ type Student @model {
 type Survey @model {
   id: ID!
   student: Student @connection(name: "StudentSurveys")
+  createdAt: AWSDateTime!
   surveyResponses: [SurveyResponse] @connection(name: "SurveyResponses")
 }
 type SurveyResponse @model {
   id: ID!
   response: String
+  createdAt: AWSDateTime!
   survey: Survey @connection(name: "SurveyResponses")
   question: SurveyQuestion @connection(name: "QuestionResponses")
 }
 type SurveyQuestion @model {
   id: ID!
   question: String
+  responseType: String
   responses: [SurveyResponse] @connection(name: "QuestionResponses")
+  possibleAnswers: [PossibleQuestionAnswer] @connection(name: "PossibleAnswers")
+}
+
+type PossibleQuestionAnswer @model {
+  id: ID!
+  answer: String
+  question: SurveyQuestion @connection(name: "PossibleAnswers")
 }

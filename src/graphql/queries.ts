@@ -8,6 +8,7 @@ export const getStudent = `query GetStudent($id: ID!) {
     surveys {
       items {
         id
+        createdAt
       }
       nextToken
     }
@@ -41,10 +42,12 @@ export const getSurvey = `query GetSurvey($id: ID!) {
         nextToken
       }
     }
+    createdAt
     surveyResponses {
       items {
         id
         response
+        createdAt
       }
       nextToken
     }
@@ -63,6 +66,7 @@ export const listSurveys = `query ListSurveys(
         id
         name
       }
+      createdAt
       surveyResponses {
         nextToken
       }
@@ -75,12 +79,14 @@ export const getSurveyResponse = `query GetSurveyResponse($id: ID!) {
   getSurveyResponse(id: $id) {
     id
     response
+    createdAt
     survey {
       id
       student {
         id
         name
       }
+      createdAt
       surveyResponses {
         nextToken
       }
@@ -88,7 +94,11 @@ export const getSurveyResponse = `query GetSurveyResponse($id: ID!) {
     question {
       id
       question
+      responseType
       responses {
+        nextToken
+      }
+      possibleAnswers {
         nextToken
       }
     }
@@ -104,12 +114,15 @@ export const listSurveyResponses = `query ListSurveyResponses(
     items {
       id
       response
+      createdAt
       survey {
         id
+        createdAt
       }
       question {
         id
         question
+        responseType
       }
     }
     nextToken
@@ -120,10 +133,19 @@ export const getSurveyQuestion = `query GetSurveyQuestion($id: ID!) {
   getSurveyQuestion(id: $id) {
     id
     question
+    responseType
     responses {
       items {
         id
         response
+        createdAt
+      }
+      nextToken
+    }
+    possibleAnswers {
+      items {
+        id
+        answer
       }
       nextToken
     }
@@ -139,8 +161,53 @@ export const listSurveyQuestions = `query ListSurveyQuestions(
     items {
       id
       question
+      responseType
       responses {
         nextToken
+      }
+      possibleAnswers {
+        nextToken
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const getPossibleQuestionAnswer = `query GetPossibleQuestionAnswer($id: ID!) {
+  getPossibleQuestionAnswer(id: $id) {
+    id
+    answer
+    question {
+      id
+      question
+      responseType
+      responses {
+        nextToken
+      }
+      possibleAnswers {
+        nextToken
+      }
+    }
+  }
+}
+`;
+export const listPossibleQuestionAnswers = `query ListPossibleQuestionAnswers(
+  $filter: ModelPossibleQuestionAnswerFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPossibleQuestionAnswers(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      answer
+      question {
+        id
+        question
+        responseType
       }
     }
     nextToken

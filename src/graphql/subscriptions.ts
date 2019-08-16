@@ -8,6 +8,7 @@ export const onCreateStudent = `subscription OnCreateStudent {
     surveys {
       items {
         id
+        createdAt
       }
       nextToken
     }
@@ -21,6 +22,7 @@ export const onUpdateStudent = `subscription OnUpdateStudent {
     surveys {
       items {
         id
+        createdAt
       }
       nextToken
     }
@@ -34,6 +36,7 @@ export const onDeleteStudent = `subscription OnDeleteStudent {
     surveys {
       items {
         id
+        createdAt
       }
       nextToken
     }
@@ -50,10 +53,12 @@ export const onCreateSurvey = `subscription OnCreateSurvey {
         nextToken
       }
     }
+    createdAt
     surveyResponses {
       items {
         id
         response
+        createdAt
       }
       nextToken
     }
@@ -70,10 +75,12 @@ export const onUpdateSurvey = `subscription OnUpdateSurvey {
         nextToken
       }
     }
+    createdAt
     surveyResponses {
       items {
         id
         response
+        createdAt
       }
       nextToken
     }
@@ -90,10 +97,12 @@ export const onDeleteSurvey = `subscription OnDeleteSurvey {
         nextToken
       }
     }
+    createdAt
     surveyResponses {
       items {
         id
         response
+        createdAt
       }
       nextToken
     }
@@ -104,12 +113,14 @@ export const onCreateSurveyResponse = `subscription OnCreateSurveyResponse {
   onCreateSurveyResponse {
     id
     response
+    createdAt
     survey {
       id
       student {
         id
         name
       }
+      createdAt
       surveyResponses {
         nextToken
       }
@@ -117,7 +128,11 @@ export const onCreateSurveyResponse = `subscription OnCreateSurveyResponse {
     question {
       id
       question
+      responseType
       responses {
+        nextToken
+      }
+      possibleAnswers {
         nextToken
       }
     }
@@ -128,12 +143,14 @@ export const onUpdateSurveyResponse = `subscription OnUpdateSurveyResponse {
   onUpdateSurveyResponse {
     id
     response
+    createdAt
     survey {
       id
       student {
         id
         name
       }
+      createdAt
       surveyResponses {
         nextToken
       }
@@ -141,7 +158,11 @@ export const onUpdateSurveyResponse = `subscription OnUpdateSurveyResponse {
     question {
       id
       question
+      responseType
       responses {
+        nextToken
+      }
+      possibleAnswers {
         nextToken
       }
     }
@@ -152,12 +173,14 @@ export const onDeleteSurveyResponse = `subscription OnDeleteSurveyResponse {
   onDeleteSurveyResponse {
     id
     response
+    createdAt
     survey {
       id
       student {
         id
         name
       }
+      createdAt
       surveyResponses {
         nextToken
       }
@@ -165,7 +188,11 @@ export const onDeleteSurveyResponse = `subscription OnDeleteSurveyResponse {
     question {
       id
       question
+      responseType
       responses {
+        nextToken
+      }
+      possibleAnswers {
         nextToken
       }
     }
@@ -176,10 +203,19 @@ export const onCreateSurveyQuestion = `subscription OnCreateSurveyQuestion {
   onCreateSurveyQuestion {
     id
     question
+    responseType
     responses {
       items {
         id
         response
+        createdAt
+      }
+      nextToken
+    }
+    possibleAnswers {
+      items {
+        id
+        answer
       }
       nextToken
     }
@@ -190,10 +226,19 @@ export const onUpdateSurveyQuestion = `subscription OnUpdateSurveyQuestion {
   onUpdateSurveyQuestion {
     id
     question
+    responseType
     responses {
       items {
         id
         response
+        createdAt
+      }
+      nextToken
+    }
+    possibleAnswers {
+      items {
+        id
+        answer
       }
       nextToken
     }
@@ -204,12 +249,75 @@ export const onDeleteSurveyQuestion = `subscription OnDeleteSurveyQuestion {
   onDeleteSurveyQuestion {
     id
     question
+    responseType
     responses {
       items {
         id
         response
+        createdAt
       }
       nextToken
+    }
+    possibleAnswers {
+      items {
+        id
+        answer
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const onCreatePossibleQuestionAnswer = `subscription OnCreatePossibleQuestionAnswer {
+  onCreatePossibleQuestionAnswer {
+    id
+    answer
+    question {
+      id
+      question
+      responseType
+      responses {
+        nextToken
+      }
+      possibleAnswers {
+        nextToken
+      }
+    }
+  }
+}
+`;
+export const onUpdatePossibleQuestionAnswer = `subscription OnUpdatePossibleQuestionAnswer {
+  onUpdatePossibleQuestionAnswer {
+    id
+    answer
+    question {
+      id
+      question
+      responseType
+      responses {
+        nextToken
+      }
+      possibleAnswers {
+        nextToken
+      }
+    }
+  }
+}
+`;
+export const onDeletePossibleQuestionAnswer = `subscription OnDeletePossibleQuestionAnswer {
+  onDeletePossibleQuestionAnswer {
+    id
+    answer
+    question {
+      id
+      question
+      responseType
+      responses {
+        nextToken
+      }
+      possibleAnswers {
+        nextToken
+      }
     }
   }
 }

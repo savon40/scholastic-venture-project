@@ -16,9 +16,6 @@ export class HomeComponent implements OnInit {
 
   student_selected = false;
   selected_student_name: String;
-  // student_list: String[] = [
-  //   'Steve Avon', 'Cris Bouidel', 'Sean Caesar'
-  // ]
   student_list = [];
   private loginSubscription: Subscription;
 
@@ -76,6 +73,11 @@ export class HomeComponent implements OnInit {
     this.getStudents();
   }
 
+  newSurvey() {
+    //add student to service?
+    this.router.navigate(['/new-survey']);
+  }
+
   changeStudent(event: any) {
     if (event === 'Select A Student') {
       this.student_selected = false;
@@ -88,15 +90,8 @@ export class HomeComponent implements OnInit {
   }
 
   async getStudents() {
-    console.log('here students');
     await API.graphql(graphqlOperation(queries.listStudents)).then(students => {
-      console.log('students', students);
       this.student_list = students['data']['listStudents']['items'];
-      console.log('student_list', this.student_list);
-      // for (const student of students['data']['listStudents']['items']) {
-      //   console.log('project', project);
-      //   // this.getProject(project['id']);
-      // }
     });
   }
 

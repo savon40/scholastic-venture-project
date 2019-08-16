@@ -10,13 +10,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignInComponent } from './components/auth/sign-in/sign-in.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthService } from './components/auth/auth.service';
+import { SurveyComponent } from './components/survey/survey.component';
+import { StudentService } from './components/student.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     SignInComponent,
-    HomeComponent
+    HomeComponent,
+    SurveyComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,7 @@ import { AuthService } from './components/auth/auth.service';
     ReactiveFormsModule,
     ChartsModule
   ],
-  providers: [AmplifyService, AuthService],
+  providers: [AmplifyService, AuthService, StudentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

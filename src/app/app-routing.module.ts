@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SignInComponent } from './components/auth/sign-in/sign-in.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './components/auth/auth.guard';
+import { SurveyComponent } from './components/survey/survey.component';
 
 const routes: Routes = [
 
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: "sign-in",
     component: SignInComponent
+  },
+  {
+    path: "new-survey",
+    component: SurveyComponent
   }
 ]
 

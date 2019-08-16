@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import Auth, { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
-import { Hub, ICredentials } from '@aws-amplify/core';
+import Auth from '@aws-amplify/auth';
 import { Subject, Observable } from 'rxjs';
 import { CognitoUser } from 'amazon-cognito-identity-js';
 // import { CookieService } from 'ngx-cookie';

@@ -18,8 +18,9 @@ export class SignInComponent implements OnInit {
 
   private loginSubscription: Subscription;
   isLoading = false;
-
   signinForm;
+  signinError = false;
+  signinErrorMessage;
 
   get emailInput() { return this.signinForm.get('email'); }
   get passwordInput() { return this.signinForm.get('password'); }
@@ -68,6 +69,8 @@ export class SignInComponent implements OnInit {
 
   signIn() {
     this.isLoading = true;
+    this.signinError = false;
+    this.signinErrorMessage = '';
     this.authService.signIn(this.emailInput.value, this.passwordInput.value)
       .then((user: CognitoUser|any) => {
         this.signinForm.reset();
@@ -76,7 +79,9 @@ export class SignInComponent implements OnInit {
       })
       .catch((error: any) => {
         this.isLoading = false;
-        alert(error.code + ': ' + error.message);
+        this.signinError = true;
+        this.signinErrorMessage = error.message;
+        // alert(error.code + ': ' + error.message);
       })
   }
 }

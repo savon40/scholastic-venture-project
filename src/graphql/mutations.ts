@@ -8,6 +8,7 @@ export const createStudent = `mutation CreateStudent($input: CreateStudentInput!
     surveys {
       items {
         id
+        createdAt
       }
       nextToken
     }
@@ -21,6 +22,7 @@ export const updateStudent = `mutation UpdateStudent($input: UpdateStudentInput!
     surveys {
       items {
         id
+        createdAt
       }
       nextToken
     }
@@ -34,6 +36,7 @@ export const deleteStudent = `mutation DeleteStudent($input: DeleteStudentInput!
     surveys {
       items {
         id
+        createdAt
       }
       nextToken
     }
@@ -50,10 +53,12 @@ export const createSurvey = `mutation CreateSurvey($input: CreateSurveyInput!) {
         nextToken
       }
     }
+    createdAt
     surveyResponses {
       items {
         id
         response
+        createdAt
       }
       nextToken
     }
@@ -70,10 +75,12 @@ export const updateSurvey = `mutation UpdateSurvey($input: UpdateSurveyInput!) {
         nextToken
       }
     }
+    createdAt
     surveyResponses {
       items {
         id
         response
+        createdAt
       }
       nextToken
     }
@@ -90,10 +97,12 @@ export const deleteSurvey = `mutation DeleteSurvey($input: DeleteSurveyInput!) {
         nextToken
       }
     }
+    createdAt
     surveyResponses {
       items {
         id
         response
+        createdAt
       }
       nextToken
     }
@@ -104,12 +113,14 @@ export const createSurveyResponse = `mutation CreateSurveyResponse($input: Creat
   createSurveyResponse(input: $input) {
     id
     response
+    createdAt
     survey {
       id
       student {
         id
         name
       }
+      createdAt
       surveyResponses {
         nextToken
       }
@@ -117,7 +128,11 @@ export const createSurveyResponse = `mutation CreateSurveyResponse($input: Creat
     question {
       id
       question
+      responseType
       responses {
+        nextToken
+      }
+      possibleAnswers {
         nextToken
       }
     }
@@ -128,12 +143,14 @@ export const updateSurveyResponse = `mutation UpdateSurveyResponse($input: Updat
   updateSurveyResponse(input: $input) {
     id
     response
+    createdAt
     survey {
       id
       student {
         id
         name
       }
+      createdAt
       surveyResponses {
         nextToken
       }
@@ -141,7 +158,11 @@ export const updateSurveyResponse = `mutation UpdateSurveyResponse($input: Updat
     question {
       id
       question
+      responseType
       responses {
+        nextToken
+      }
+      possibleAnswers {
         nextToken
       }
     }
@@ -152,12 +173,14 @@ export const deleteSurveyResponse = `mutation DeleteSurveyResponse($input: Delet
   deleteSurveyResponse(input: $input) {
     id
     response
+    createdAt
     survey {
       id
       student {
         id
         name
       }
+      createdAt
       surveyResponses {
         nextToken
       }
@@ -165,7 +188,11 @@ export const deleteSurveyResponse = `mutation DeleteSurveyResponse($input: Delet
     question {
       id
       question
+      responseType
       responses {
+        nextToken
+      }
+      possibleAnswers {
         nextToken
       }
     }
@@ -176,10 +203,19 @@ export const createSurveyQuestion = `mutation CreateSurveyQuestion($input: Creat
   createSurveyQuestion(input: $input) {
     id
     question
+    responseType
     responses {
       items {
         id
         response
+        createdAt
+      }
+      nextToken
+    }
+    possibleAnswers {
+      items {
+        id
+        answer
       }
       nextToken
     }
@@ -190,10 +226,19 @@ export const updateSurveyQuestion = `mutation UpdateSurveyQuestion($input: Updat
   updateSurveyQuestion(input: $input) {
     id
     question
+    responseType
     responses {
       items {
         id
         response
+        createdAt
+      }
+      nextToken
+    }
+    possibleAnswers {
+      items {
+        id
+        answer
       }
       nextToken
     }
@@ -204,12 +249,81 @@ export const deleteSurveyQuestion = `mutation DeleteSurveyQuestion($input: Delet
   deleteSurveyQuestion(input: $input) {
     id
     question
+    responseType
     responses {
       items {
         id
         response
+        createdAt
       }
       nextToken
+    }
+    possibleAnswers {
+      items {
+        id
+        answer
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const createPossibleQuestionAnswer = `mutation CreatePossibleQuestionAnswer(
+  $input: CreatePossibleQuestionAnswerInput!
+) {
+  createPossibleQuestionAnswer(input: $input) {
+    id
+    answer
+    question {
+      id
+      question
+      responseType
+      responses {
+        nextToken
+      }
+      possibleAnswers {
+        nextToken
+      }
+    }
+  }
+}
+`;
+export const updatePossibleQuestionAnswer = `mutation UpdatePossibleQuestionAnswer(
+  $input: UpdatePossibleQuestionAnswerInput!
+) {
+  updatePossibleQuestionAnswer(input: $input) {
+    id
+    answer
+    question {
+      id
+      question
+      responseType
+      responses {
+        nextToken
+      }
+      possibleAnswers {
+        nextToken
+      }
+    }
+  }
+}
+`;
+export const deletePossibleQuestionAnswer = `mutation DeletePossibleQuestionAnswer(
+  $input: DeletePossibleQuestionAnswerInput!
+) {
+  deletePossibleQuestionAnswer(input: $input) {
+    id
+    answer
+    question {
+      id
+      question
+      responseType
+      responses {
+        nextToken
+      }
+      possibleAnswers {
+        nextToken
+      }
     }
   }
 }
