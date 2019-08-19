@@ -9,7 +9,7 @@
       <p class="text-center">Fill out form to track [student name]'s mental health. You do not have to answer all of the
         questions. We will only record the answers you do provide and use them to do an analysis</p>
       <div class="card p-5">
-        <form>
+        <form (ngSubmit)="onSubmit(surveyForm.value)" #surveyForm="ngForm">
           <!-- questions -->
           <div *ngFor="let question of question_list" class="form-group row">
             <label for="staticEmail" class="col-md-8 col-form-label">{{question['question']}}</label>
@@ -17,7 +17,7 @@
 
               <!-- answers -->
               <div *ngFor="let answer of question['possibleAnswers']['items']" class="form-check">
-                <input class="form-check-input" type="radio" name="{{question['id']}}" id="exampleRadios1" value="{{answer['answer']}}">
+                <input class="form-check-input" type="radio" name="{{question['id']}}" id="exampleRadios1" value="{{answer['answer']}}" ngModel>
                 <label class="form-check-label" for="exampleRadios1">
                   {{answer['answer']}}
                 </label>

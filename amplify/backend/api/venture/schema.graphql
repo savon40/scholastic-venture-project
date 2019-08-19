@@ -1,7 +1,7 @@
 type Student @model {
   id: ID!
   name: String
-  surveys: [Survey] @connection(name: "StudentSurveys")
+  surveys: [Survey] @connection(name: "StudentSurveys", sortField: "createdAt")
 }
 type Survey @model {
   id: ID!
