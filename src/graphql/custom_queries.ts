@@ -22,3 +22,28 @@ export const listSurveyQuestionsWithAnswers = `query ListSurveyQuestions(
   }
 }
 `;
+
+export const getStudentAndSurveys = `query GetStudent($id: ID!) {
+  getStudent(id: $id) {
+    id
+    name
+    surveys {
+      items {
+        id
+        createdAt
+        surveyResponses {
+          items {
+            id
+            response
+            question {
+              id
+              question
+            }
+          }
+        }
+      }
+      nextToken
+    }
+  }
+}
+`;

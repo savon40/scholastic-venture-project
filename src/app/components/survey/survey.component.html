@@ -6,7 +6,7 @@
       </div>
     </div>
     <div *ngIf="!isLoading" class="col-md-12 col-sm-12 mt-2">
-      <p class="text-center">Fill out form to track [student name]'s mental health. You do not have to answer all of the
+      <p class="text-center">Fill out form to track {{student_info.name}}'s mental health. You do not have to answer all of the
         questions. We will only record the answers you do provide and use them to do an analysis</p>
       <div class="card p-5">
         <form (ngSubmit)="onSubmit(surveyForm.value)" #surveyForm="ngForm">

@@ -6,7 +6,7 @@
         <div class="col-7">
           <select class="custom-select w-50" (change)="changeStudent($event.target.value)">
             <option selected>Select A Student</option>
-            <option *ngFor="let student of student_list" value="{{student['name']}}">{{student['name']}}</option>
+            <option *ngFor="let student of student_list" value="{{student |json}}">{{student['name']}}</option>
           </select>
         </div>
         <div *ngIf="student_selected" class="col-5" style="text-align: right;">

@@ -4,6 +4,8 @@ import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import * as queries from '../../../graphql/queries';
+import * as custom_queries from '../../../graphql/custom_queries';
+import { StudentService } from '../student.service';
 
 
 
@@ -58,7 +60,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private studentService: StudentService
   ) { }
 
   ngOnInit() {
@@ -78,20 +81,29 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/new-survey']);
   }
 
-  changeStudent(event: any) {
+  async changeStudent(event: any) {
+
     if (event === 'Select A Student') {
       this.student_selected = false;
       this.selected_student_name = null;
     }
     else if (event) {
+      const student_info = JSON.parse(event);
       this.student_selected = true;
-      this.selected_student_name = event;
+      this.selected_student_name = student_info.name;
+      this.studentService.setStudentId(student_info.id);
+      this.studentService.setStudentInfo(student_info);
+
+      await API.graphql(graphqlOperation(custom_queries.getStudentAndSurveys, { id: student_info.id })).then(student_surveys => {
+        console.log('student and survey', student_surveys);
+      });
     }
   }
 
   async getStudents() {
     await API.graphql(graphqlOperation(queries.listStudents)).then(students => {
       this.student_list = students['data']['listStudents']['items'];
+      console.log('student_list', this.student_list);
     });
   }
 
