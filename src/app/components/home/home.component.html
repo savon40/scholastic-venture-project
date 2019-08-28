@@ -9,7 +9,7 @@
             <option *ngFor="let student of student_list" value="{{student |json}}">{{student['name']}}</option>
           </select>
         </div>
-        <div *ngIf="student_selected" class="col-5" style="text-align: right;">
+        <div *ngIf="selected_student" class="col-5" style="text-align: right;">
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-primary" (click)="newSurvey()">Fill out new Survey</button>
             <button type="button" class="btn btn-secondary">Email Parent(s)</button>
@@ -17,8 +17,8 @@
         </div>
       </div>
 
-      <div *ngIf="student_selected" class="mt-5 mx-auto" style="width: 800px;">
-        <p>{{selected_student_name}} data:</p>
+      <div *ngIf="selected_student" class="mt-5 mx-auto" style="width: 800px;">
+        <p>{{selected_student.name}} data:</p>
         <!-- <img src="assets/line-chart.png" alt="Responsive image" style="width: 100%"> -->
 
         <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"

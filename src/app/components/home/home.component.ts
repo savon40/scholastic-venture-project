@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
@@ -14,12 +14,13 @@ import { StudentService } from '../student.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
-  student_selected = false;
+  selected_student: any;
   selected_student_name: String;
   student_list = [];
   private loginSubscription: Subscription;
+  private studentSubscription: Subscription;
 
   //bar chart
   public barChartOptions = {
@@ -73,7 +74,18 @@ export class HomeComponent implements OnInit {
         }
       }
     )
+
+    this.studentSubscription = this.studentService.studentChange.subscribe(
+      (student_info: any) => {
+        this.selected_student = student_info;
+      }
+    )
+
     this.getStudents();
+  }
+
+  ngAfterViewInit() {
+    console.log('on view init', this.studentService.getStudentInfo());
   }
 
   newSurvey() {
@@ -84,17 +96,14 @@ export class HomeComponent implements OnInit {
   async changeStudent(event: any) {
 
     if (event === 'Select A Student') {
-      this.student_selected = false;
-      this.selected_student_name = null;
+      this.selected_student = null;
     }
     else if (event) {
-      const student_info = JSON.parse(event);
-      this.student_selected = true;
-      this.selected_student_name = student_info.name;
-      this.studentService.setStudentId(student_info.id);
-      this.studentService.setStudentInfo(student_info);
+      this.selected_student = JSON.parse(event);
+      this.studentService.setStudentInfo(this.selected_student);
 
-      await API.graphql(graphqlOperation(custom_queries.getStudentAndSurveys, { id: student_info.id })).then(student_surveys => {
+      //get the student and survey information
+      await API.graphql(graphqlOperation(custom_queries.getStudentAndSurveys, { id: this.selected_student.id })).then(student_surveys => {
         console.log('student and survey', student_surveys);
       });
     }

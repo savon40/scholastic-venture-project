@@ -15,22 +15,13 @@ export interface SurveyResponse {
 })
 export class StudentService {
 
-  private selectedStudentId: string;
-  studentIdChange: Subject<string> = new Subject<string>();
-
   private selectedStudent;
+  studentChange: Subject<string> = new Subject<string>();
 
-
-  setStudentId(student_id: string) {
-    this.selectedStudentId = student_id;
-    this.studentIdChange.next(this.selectedStudentId);
-  }
-  getStudentId() {
-    return this.selectedStudentId;
-  }
 
   setStudentInfo(student_info: any) {
     this.selectedStudent = student_info;
+    this.studentChange.next(this.selectedStudent);
   }
   getStudentInfo() {
     return this.selectedStudent;
