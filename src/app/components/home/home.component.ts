@@ -17,7 +17,6 @@ import { StudentService } from '../student.service';
 export class HomeComponent implements OnInit, AfterViewInit {
 
   selected_student: any;
-  selected_student_name: String;
   student_list = [];
   private loginSubscription: Subscription;
   private studentSubscription: Subscription;
@@ -27,13 +26,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels = ['Sept', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
+  public barChartLabels = []; //'Sept', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'
   public barChartType = 'bar';
   public barChartLegend = true;
-  public barChartData = [
+  public barChartData;
+  /*
     {data: [65, 59, 80, 81, 56, 55, 40], label: 'Mental Health'},
     {data: [28, 48, 40, 19, 86, 27, 90], label: 'Grades'}
-  ];
+  */
   // end bar chart
 
   //pie chart
@@ -86,6 +86,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     console.log('on view init', this.studentService.getStudentInfo());
+    if (this.studentService.getStudentInfo()) {
+      this.selected_student = this.studentService.getStudentInfo();
+      this.changeStudent(this.selected_student);
+    }
+
   }
 
   newSurvey() {
@@ -105,7 +110,34 @@ export class HomeComponent implements OnInit, AfterViewInit {
       //get the student and survey information
       await API.graphql(graphqlOperation(custom_queries.getStudentAndSurveys, { id: this.selected_student.id })).then(student_surveys => {
         console.log('student and survey', student_surveys);
+        let surveys = student_surveys['data']['getStudent']['surveys']['items'];
+        let trueData = [];
+        let falseData = [];
+        console.log('surveys', surveys);
+        for (const survey of surveys) {
+          console.log('survey', survey);
+          this.barChartLabels.push(survey['createdAt']);
+          trueData.push(survey['numTrue'] != null ? survey['numTrue'] : 0);
+          falseData.push(survey['numFalse'] != null ? survey['numFalse'] : 0);
+
+          console.log('trueData', trueData);
+          console.log('falseData', falseData);
+        }
+
+
+        this.barChartData = [
+          {data: trueData, label: 'True Answers'},
+          {data: falseData, label: 'False Answers'},
+        ]
       });
+
+        /*
+    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Mental Health'},
+    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Grades'}
+  */
+
+      console.log('barchartlabels', this.barChartLabels);
+      console.log('barChartData', this.barChartData);
     }
   }
 
