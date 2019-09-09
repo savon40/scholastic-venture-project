@@ -9,6 +9,8 @@ export const onCreateStudent = `subscription OnCreateStudent {
       items {
         id
         createdAt
+        numTrue
+        numFalse
       }
       nextToken
     }
@@ -23,6 +25,8 @@ export const onUpdateStudent = `subscription OnUpdateStudent {
       items {
         id
         createdAt
+        numTrue
+        numFalse
       }
       nextToken
     }
@@ -37,6 +41,8 @@ export const onDeleteStudent = `subscription OnDeleteStudent {
       items {
         id
         createdAt
+        numTrue
+        numFalse
       }
       nextToken
     }
@@ -54,6 +60,8 @@ export const onCreateSurvey = `subscription OnCreateSurvey {
       }
     }
     createdAt
+    numTrue
+    numFalse
     surveyResponses {
       items {
         id
@@ -76,6 +84,8 @@ export const onUpdateSurvey = `subscription OnUpdateSurvey {
       }
     }
     createdAt
+    numTrue
+    numFalse
     surveyResponses {
       items {
         id
@@ -98,6 +108,8 @@ export const onDeleteSurvey = `subscription OnDeleteSurvey {
       }
     }
     createdAt
+    numTrue
+    numFalse
     surveyResponses {
       items {
         id
@@ -121,6 +133,8 @@ export const onCreateSurveyResponse = `subscription OnCreateSurveyResponse {
         name
       }
       createdAt
+      numTrue
+      numFalse
       surveyResponses {
         nextToken
       }
@@ -151,6 +165,8 @@ export const onUpdateSurveyResponse = `subscription OnUpdateSurveyResponse {
         name
       }
       createdAt
+      numTrue
+      numFalse
       surveyResponses {
         nextToken
       }
@@ -181,6 +197,8 @@ export const onDeleteSurveyResponse = `subscription OnDeleteSurveyResponse {
         name
       }
       createdAt
+      numTrue
+      numFalse
       surveyResponses {
         nextToken
       }

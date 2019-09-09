@@ -4,6 +4,7 @@ import * as custom_queries from '../../../graphql/custom_queries';
 import * as mutations from '../../../graphql/mutations';
 import { StudentService } from '../student.service';
 import { Router } from '@angular/router';
+import { responses } from './responses';
 
 @Component({
   selector: 'app-survey',
@@ -13,8 +14,11 @@ import { Router } from '@angular/router';
 export class SurveyComponent implements OnInit {
 
   isLoading = false;
+  survey_submitted = false;
   question_list = [];
+  answer_map = new Map();
   student_info: any;
+  response: any;
 
   constructor(
     private studentService: StudentService,
@@ -38,6 +42,24 @@ export class SurveyComponent implements OnInit {
     await API.graphql(graphqlOperation(custom_queries.listSurveyQuestionsWithAnswers)).then(questions => {
       console.log('questions', questions);
       this.question_list = questions['data']['listSurveyQuestions']['items'];
+
+      for (const question of this.question_list) {
+        let answerList = [];
+
+        for (const answer of question['possibleAnswers']['items']) {
+          if (answer['answer'] === 'true') {
+            answerList.unshift(answer);
+          }
+          else {
+            answerList.push(answer);
+          }
+        }
+
+        this.answer_map.set(question['id'], answerList);
+      }
+
+      console.log('answer map', this.answer_map);
+
       this.isLoading = false;
     });
   }
@@ -55,6 +77,8 @@ export class SurveyComponent implements OnInit {
     const newSurvey = await API.graphql(graphqlOperation(mutations.createSurvey, { input: surveyData }));
 
     const surveyId = newSurvey['data']['createSurvey']['id'];
+    let numTrue = 0;
+    let numFalse = 0;
 
     for (const question of this.question_list) {
 
@@ -71,12 +95,45 @@ export class SurveyComponent implements OnInit {
         }
         console.log('surveyResponseInfo', surveyResponseInfo);
 
+        if (value[question['id']] === 'true') {
+          numTrue++;
+        }
+        else {
+          numFalse++;
+        }
+
         const newSurveyResponse = await API.graphql(graphqlOperation(mutations.createSurveyResponse, { input: surveyResponseInfo }));
         console.log('new survey response', newSurveyResponse);
       }
 
+      console.log('numTrue', numTrue);
     }
 
+    //update the survey with the number of trues and falses
+    const updateSurveyInfo = {
+      id: surveyId,
+      numTrue: numTrue,
+      numFalse: numFalse
+    }
+    const updateSurvey = await API.graphql(graphqlOperation(mutations.updateSurvey, { input: updateSurveyInfo }));
+    console.log('updatedSurvey', updateSurvey);
+
+
+    //get the number of trues:
+    if (numTrue > 5) {
+      this.response = responses.get("High");
+    }
+    else if (numTrue >= 3) {
+      this.response = responses.get("Medium")
+    }
+    else {
+      this.response = responses.get("Low");
+    }
+    this.survey_submitted = true;
+    this.isLoading = false;
+  }
+
+  returnHome() {
     this.router.navigate(['/']);
   }
 

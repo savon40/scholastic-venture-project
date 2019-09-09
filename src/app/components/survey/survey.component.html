@@ -5,8 +5,9 @@
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-    <div *ngIf="!isLoading" class="col-md-12 col-sm-12 mt-2">
-      <p class="text-center">Fill out form to track {{student_info.name}}'s mental health. You do not have to answer all of the
+    <div *ngIf="!isLoading && !survey_submitted" class="col-md-12 col-sm-12 mt-2">
+      <p class="text-center">Fill out form to track {{student_info.name}}'s mental health. You do not have to answer all
+        of the
         questions. We will only record the answers you do provide and use them to do an analysis</p>
       <div class="card p-5">
         <form (ngSubmit)="onSubmit(surveyForm.value)" #surveyForm="ngForm">
@@ -16,8 +17,9 @@
             <div *ngIf="question['responseType'] === 'radio'" class="col-md-2">
 
               <!-- answers -->
-              <div *ngFor="let answer of question['possibleAnswers']['items']" class="form-check">
-                <input class="form-check-input" type="radio" name="{{question['id']}}" id="exampleRadios1" value="{{answer['answer']}}" ngModel>
+              <div *ngFor="let answer of answer_map.get(question['id'])" class="form-check">
+                <input class="form-check-input" type="radio" name="{{question['id']}}" id="exampleRadios1"
+                  value="{{answer['answer']}}" ngModel>
                 <label class="form-check-label" for="exampleRadios1">
                   {{answer['answer']}}
                 </label>
@@ -26,6 +28,16 @@
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading && survey_submitted" class="col-md-12 col-sm-12 mt-2">
+      <div class="jumbotron">
+        <h4>RESULT: {{response.title}}</h4>
+        <p class="lead">{{response.paragraph_one}}</p>
+        <hr class="my-4">
+        <p>{{response.paragraph_two}}</p>
+        <a class="btn btn-primary btn-lg" href="#" role="button" (click)="returnHome()">Return to class list</a>
       </div>
     </div>
   </div>

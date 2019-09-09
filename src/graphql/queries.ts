@@ -9,6 +9,8 @@ export const getStudent = `query GetStudent($id: ID!) {
       items {
         id
         createdAt
+        numTrue
+        numFalse
       }
       nextToken
     }
@@ -43,6 +45,8 @@ export const getSurvey = `query GetSurvey($id: ID!) {
       }
     }
     createdAt
+    numTrue
+    numFalse
     surveyResponses {
       items {
         id
@@ -67,6 +71,8 @@ export const listSurveys = `query ListSurveys(
         name
       }
       createdAt
+      numTrue
+      numFalse
       surveyResponses {
         nextToken
       }
@@ -87,6 +93,8 @@ export const getSurveyResponse = `query GetSurveyResponse($id: ID!) {
         name
       }
       createdAt
+      numTrue
+      numFalse
       surveyResponses {
         nextToken
       }
@@ -118,6 +126,8 @@ export const listSurveyResponses = `query ListSurveyResponses(
       survey {
         id
         createdAt
+        numTrue
+        numFalse
       }
       question {
         id
