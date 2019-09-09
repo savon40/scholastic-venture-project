@@ -18,8 +18,18 @@ let low_risk = {
   paragraph_two: "If you are still concerned about this child's mental health regardless of this response, please make a note to fill out this survey as often as necessary. Seek extra help from a counselor if needed. Thank you"
 }
 
-
 export const responses = new Map<String, any>();
 responses.set("High", high_risk);
 responses.set("Medium", medium_risk);
 responses.set("Low", high_risk);
+
+
+
+let bad_history = {
+  title: "Student has been showing signs of depression for a little while",
+  paragraph_one: "Some info about the students history",
+  paragraph_two: "A suggestion about what they should do"
+}
+
+export const histories = new Map<String, any>();
+histories.set('bad', bad_history);

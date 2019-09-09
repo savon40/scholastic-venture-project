@@ -17,7 +17,14 @@
         </div>
       </div>
 
-      <div *ngIf="selected_student && barChartData.length > 0" class="mt-5 mx-auto" style="width: 800px;">
+      <!-- col-md-12 col-sm-12 mt-5 d-flex  -->
+      <div *ngIf="isLoading" class="col-md-12 col-sm-12 mt-5 d-flex justify-content-center" style="width: 800px;">
+        <div class="spinner-border text-primary justify-content-center" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+
+      <div *ngIf="!isLoading && selected_student && barChartData.length > 0" class="mt-5 mx-auto" style="width: 800px;">
         <p>{{selected_student.name}} data:</p>
         <!-- <img src="assets/line-chart.png" alt="Responsive image" style="width: 100%"> -->
 
@@ -27,7 +34,13 @@
 
         <div style="width: 100%; border-bottom: 1px solid;"></div>
 
-        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"></canvas>
+        <div class="mt-5 bg-light" style="width: 800px; padding: 50px 0;">
+          <h4>{{history.title}}</h4>
+          <p>{{history.paragraph_one}}</p>
+          <p>{{history.paragraph_two}}</p>
+        </div>
+
+        <!-- <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"></canvas>
 
         <div style="width: 100%; border-bottom: 1px solid;"></div>
 
@@ -36,10 +49,10 @@
         <div style="width: 100%; border-bottom: 1px solid;"></div>
 
         <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels"
-          [chartType]="doughnutChartType"></canvas>
+          [chartType]="doughnutChartType"></canvas> -->
 
       </div>
-      <div *ngIf="!selected_student" class="mt-5 bg-light" style="width: 800px; padding: 50px 0;">
+      <div *ngIf="!selected_student && !isLoading" class="mt-5 bg-light" style="width: 800px; padding: 50px 0;">
         <p class="text-center">Select a student to view historical data</p>
       </div>
     </div>

@@ -4,7 +4,7 @@ import * as custom_queries from '../../../graphql/custom_queries';
 import * as mutations from '../../../graphql/mutations';
 import { StudentService } from '../student.service';
 import { Router } from '@angular/router';
-import { responses } from './responses';
+import { responses } from '../default_text';
 
 @Component({
   selector: 'app-survey',

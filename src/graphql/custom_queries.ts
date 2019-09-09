@@ -31,6 +31,8 @@ export const getStudentAndSurveys = `query GetStudent($id: ID!) {
       items {
         id
         createdAt
+        numTrue
+        numFalse
         surveyResponses {
           items {
             id

@@ -6,6 +6,7 @@ import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import * as queries from '../../../graphql/queries';
 import * as custom_queries from '../../../graphql/custom_queries';
 import { StudentService } from '../student.service';
+import { histories } from '../default_text';
 
 
 
@@ -16,8 +17,10 @@ import { StudentService } from '../student.service';
 })
 export class HomeComponent implements OnInit, AfterViewInit {
 
+  isLoading = false;
   selected_student: any;
   student_list = [];
+  history: any;
   private loginSubscription: Subscription;
   private studentSubscription: Subscription;
 
@@ -45,8 +48,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   //radar chart
   public radarChartLabels = ['Q1', 'Q2', 'Q3', 'Q4'];
   public radarChartData = [
-    {data: [120, 130, 180, 70], label: '2017'},
-    {data: [90, 150, 200, 45], label: '2018'}
+    { data: [120, 130, 180, 70], label: '2017' },
+    { data: [90, 150, 200, 45], label: '2018' }
   ];
   public radarChartType = 'radar';
   // end radar chart
@@ -90,11 +93,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.selected_student = this.studentService.getStudentInfo();
       this.changeStudent(this.selected_student);
     }
-
   }
 
   newSurvey() {
-    //add student to service?
     this.router.navigate(['/new-survey']);
   }
 
@@ -104,6 +105,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.selected_student = null;
     }
     else if (event) {
+      this.isLoading = true;
       this.selected_student = JSON.parse(event);
       this.studentService.setStudentInfo(this.selected_student);
 
@@ -113,31 +115,33 @@ export class HomeComponent implements OnInit, AfterViewInit {
         let surveys = student_surveys['data']['getStudent']['surveys']['items'];
         let trueData = [];
         let falseData = [];
-        console.log('surveys', surveys);
         for (const survey of surveys) {
-          console.log('survey', survey);
-          this.barChartLabels.push(survey['createdAt']);
+
+          //date taken
+          let date = new Date(survey['createdAt']);
+          let year = date.getFullYear();
+          let month = date.getMonth() + 1;
+          let dt = date.getDate();
+          if (dt < 10) {
+            dt = '0' + dt;
+          }
+          if (month < 10) {
+            month = '0' + month;
+          }
+          this.barChartLabels.push(month+'-'+dt+'-'+year);
+
           trueData.push(survey['numTrue'] != null ? survey['numTrue'] : 0);
           falseData.push(survey['numFalse'] != null ? survey['numFalse'] : 0);
-
-          console.log('trueData', trueData);
-          console.log('falseData', falseData);
         }
 
-
         this.barChartData = [
-          {data: trueData, label: 'True Answers'},
-          {data: falseData, label: 'False Answers'},
+          { data: trueData, label: 'True Answers' },
+          { data: falseData, label: 'False Answers' },
         ]
+
+        this.history = histories.get('bad');
+        this.isLoading = false;
       });
-
-        /*
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Mental Health'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Grades'}
-  */
-
-      console.log('barchartlabels', this.barChartLabels);
-      console.log('barChartData', this.barChartData);
     }
   }
 
