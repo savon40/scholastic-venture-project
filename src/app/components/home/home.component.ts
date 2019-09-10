@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     console.log('on view init', this.studentService.getStudentInfo());
     if (this.studentService.getStudentInfo()) {
       this.selected_student = this.studentService.getStudentInfo();
-      this.changeStudent(this.selected_student);
+      this.getStudentSurveyInfo(this.selected_student.id);
     }
   }
 
@@ -99,7 +99,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/new-survey']);
   }
 
-  async changeStudent(event: any) {
+  changeStudent(event: any) {
 
     if (event === 'Select A Student') {
       this.selected_student = null;
@@ -108,41 +108,56 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.isLoading = true;
       this.selected_student = JSON.parse(event);
       this.studentService.setStudentInfo(this.selected_student);
-
-      //get the student and survey information
-      await API.graphql(graphqlOperation(custom_queries.getStudentAndSurveys, { id: this.selected_student.id })).then(student_surveys => {
-        console.log('student and survey', student_surveys);
-        let surveys = student_surveys['data']['getStudent']['surveys']['items'];
-        let trueData = [];
-        let falseData = [];
-        for (const survey of surveys) {
-
-          //date taken
-          let date = new Date(survey['createdAt']);
-          let year = date.getFullYear();
-          let month = date.getMonth() + 1;
-          let dt = date.getDate();
-          if (dt < 10) {
-            dt = '0' + dt;
-          }
-          if (month < 10) {
-            month = '0' + month;
-          }
-          this.barChartLabels.push(month+'-'+dt+'-'+year);
-
-          trueData.push(survey['numTrue'] != null ? survey['numTrue'] : 0);
-          falseData.push(survey['numFalse'] != null ? survey['numFalse'] : 0);
-        }
-
-        this.barChartData = [
-          { data: trueData, label: 'True Answers' },
-          { data: falseData, label: 'False Answers' },
-        ]
-
-        this.history = histories.get('bad');
-        this.isLoading = false;
-      });
+      this.getStudentSurveyInfo(this.selected_student.id);
     }
+  }
+
+  async getStudentSurveyInfo(studentId: String) {
+
+    //clear lists before beginning
+    this.barChartLabels = [];
+    this.barChartData = [];
+
+    //get the student and survey information
+    await API.graphql(graphqlOperation(custom_queries.getStudentAndSurveys, { id: studentId })).then(student_surveys => {
+      console.log('student and survey', student_surveys);
+      let surveys = student_surveys['data']['getStudent']['surveys']['items'];
+      surveys.sort(function (a, b) {
+        return (a['createdAt'] < b['createdAt']) ? -1 : ((a['createdAt'] > b['createdAt']) ? 1 : 0);
+      });
+
+      let trueData = [];
+      let falseData = [];
+
+      for (const survey of surveys) {
+
+        //date taken
+        let date = new Date(survey['createdAt']);
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let monthString = String(month);
+        let dt = date.getDate();
+        let dtString = String(dt);
+        if (dt < 10) {
+          dtString = '0' + dt;
+        }
+        if (month < 10) {
+          monthString = '0' + month;
+        }
+        this.barChartLabels.push(monthString + '-' + dtString + '-' + year);
+
+        trueData.push(survey['numTrue'] != null ? survey['numTrue'] : 0);
+        falseData.push(survey['numFalse'] != null ? survey['numFalse'] : 0);
+      }
+
+      this.barChartData = [
+        { data: trueData, label: 'True Answers' },
+        { data: falseData, label: 'False Answers' },
+      ]
+
+      this.history = histories.get('bad');
+      this.isLoading = false;
+    });
   }
 
   async getStudents() {
