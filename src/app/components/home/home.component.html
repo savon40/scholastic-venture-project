@@ -5,8 +5,8 @@
       <div class="form-row sticky-top" style="background-color: #e9ecef; padding: 5px 0;">
         <div class="col-7">
           <select class="custom-select w-50" (change)="changeStudent($event.target.value)">
-            <option selected>Select A Student</option>
-            <option *ngFor="let student of student_list" value="{{student |json}}">{{student['name']}}</option>
+            <option>Select A Student</option>
+            <option *ngFor="let student of student_list" [selected]="selected_student != null && student['id'] === selected_student.id" value="{{student |json}}">{{student['name']}}</option>
           </select>
         </div>
         <div *ngIf="selected_student" class="col-5" style="text-align: right;">
