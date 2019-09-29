@@ -143,6 +143,7 @@ export const onCreateSurveyResponse = `subscription OnCreateSurveyResponse {
       id
       question
       responseType
+      weight
       responses {
         nextToken
       }
@@ -175,6 +176,7 @@ export const onUpdateSurveyResponse = `subscription OnUpdateSurveyResponse {
       id
       question
       responseType
+      weight
       responses {
         nextToken
       }
@@ -207,6 +209,7 @@ export const onDeleteSurveyResponse = `subscription OnDeleteSurveyResponse {
       id
       question
       responseType
+      weight
       responses {
         nextToken
       }
@@ -222,6 +225,7 @@ export const onCreateSurveyQuestion = `subscription OnCreateSurveyQuestion {
     id
     question
     responseType
+    weight
     responses {
       items {
         id
@@ -245,6 +249,7 @@ export const onUpdateSurveyQuestion = `subscription OnUpdateSurveyQuestion {
     id
     question
     responseType
+    weight
     responses {
       items {
         id
@@ -268,6 +273,7 @@ export const onDeleteSurveyQuestion = `subscription OnDeleteSurveyQuestion {
     id
     question
     responseType
+    weight
     responses {
       items {
         id
@@ -294,6 +300,7 @@ export const onCreatePossibleQuestionAnswer = `subscription OnCreatePossibleQues
       id
       question
       responseType
+      weight
       responses {
         nextToken
       }
@@ -312,6 +319,7 @@ export const onUpdatePossibleQuestionAnswer = `subscription OnUpdatePossibleQues
       id
       question
       responseType
+      weight
       responses {
         nextToken
       }
@@ -330,6 +338,7 @@ export const onDeletePossibleQuestionAnswer = `subscription OnDeletePossibleQues
       id
       question
       responseType
+      weight
       responses {
         nextToken
       }

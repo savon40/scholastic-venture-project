@@ -22,6 +22,7 @@ type SurveyQuestion @model {
   id: ID!
   question: String!
   responseType: String
+  weight: Int
   responses: [SurveyResponse] @connection(name: "QuestionResponses")
   possibleAnswers: [PossibleQuestionAnswer] @connection(name: "PossibleAnswers")
 }

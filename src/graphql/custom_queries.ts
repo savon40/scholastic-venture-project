@@ -40,6 +40,7 @@ export const getStudentAndSurveys = `query GetStudent($id: ID!) {
             question {
               id
               question
+              weight
             }
           }
         }
