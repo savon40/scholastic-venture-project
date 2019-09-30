@@ -8,6 +8,9 @@ import * as custom_queries from '../../../graphql/custom_queries';
 import { StudentService } from '../student.service';
 import { histories } from '../default_text';
 
+// using chart:
+// https://alligator.io/angular/chartjs-ng2-charts/
+
 
 
 @Component({
@@ -39,28 +42,36 @@ export class HomeComponent implements OnInit, AfterViewInit {
   */
   // end bar chart
 
+  // line chart
+  public lineChartOptions = { responsive: true };
+  public lineChartLabels = [];
+  public lineChartData;
+  // lineChartData = [
+  //   { data: [3.2, 4.1, 2.1, 1.1], label: 'Mental Health Issue Indication (0-5)' }
+  // ];
+  // lineChartLabels = ['January', 'February', 'Mars', 'April'];
+  // end line chart
+
   //pie chart
-  public pieChartLabels = ['Q1', 'Q2', 'Q3', 'Q4'];
-  public pieChartData = [120, 150, 180, 90];
-  public pieChartType = 'pie';
+  // public pieChartLabels = ['Q1', 'Q2', 'Q3', 'Q4'];
+  // public pieChartData = [120, 150, 180, 90];
+  // public pieChartType = 'pie';
   //end pie chart
 
   //radar chart
-  public radarChartLabels = ['Q1', 'Q2', 'Q3', 'Q4'];
-  public radarChartData = [
-    { data: [120, 130, 180, 70], label: '2017' },
-    { data: [90, 150, 200, 45], label: '2018' }
-  ];
-  public radarChartType = 'radar';
+  // public radarChartLabels = ['Q1', 'Q2', 'Q3', 'Q4'];
+  // public radarChartData = [
+  //   { data: [120, 130, 180, 70], label: '2017' },
+  //   { data: [90, 150, 200, 45], label: '2018' }
+  // ];
+  // public radarChartType = 'radar';
   // end radar chart
 
   //donut chart
-  public doughnutChartLabels = ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
-  public doughnutChartData = [120, 150, 180, 90];
-  public doughnutChartType = 'doughnut';
+  // public doughnutChartLabels = ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
+  // public doughnutChartData = [120, 150, 180, 90];
+  // public doughnutChartType = 'doughnut';
   //end donut chart
-
-
 
   constructor(
     private authService: AuthService,
@@ -129,6 +140,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
       let trueData = [];
       let falseData = [];
 
+      let averageData = [];
+
       for (const survey of surveys) {
 
         //date taken
@@ -145,10 +158,31 @@ export class HomeComponent implements OnInit, AfterViewInit {
           monthString = '0' + month;
         }
         this.barChartLabels.push(monthString + '-' + dtString + '-' + year);
+        this.lineChartLabels.push(monthString + '-' + dtString + '-' + year);
 
+        //true and false for bar chart - may remove
         trueData.push(survey['numTrue'] != null ? survey['numTrue'] : 0);
         falseData.push(survey['numFalse'] != null ? survey['numFalse'] : 0);
+
+        //loop through responses / questions to calculate average
+        let responseCount = 0;
+        let totalWeight = 0;
+        for (const response of survey['surveyResponses']['items']) {
+          totalWeight = totalWeight + response['question']['weight'];
+          responseCount++;
+        }
+
+        if (responseCount > 0) {
+          averageData.push((totalWeight / responseCount).toFixed(2));
+        }
+        else {
+          averageData.push(0);
+        }
       }
+
+      this.lineChartData = [
+        {data: averageData, label: 'Mental Health Issue Indication (0-5)'}
+      ]
 
       this.barChartData = [
         { data: trueData, label: 'True Answers' },

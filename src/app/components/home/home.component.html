@@ -6,7 +6,9 @@
         <div class="col-7">
           <select class="custom-select w-50" (change)="changeStudent($event.target.value)">
             <option>Select A Student</option>
-            <option *ngFor="let student of student_list" [selected]="selected_student != null && student['id'] === selected_student.id" value="{{student |json}}">{{student['name']}}</option>
+            <option *ngFor="let student of student_list"
+              [selected]="selected_student != null && student['id'] === selected_student.id" value="{{student |json}}">
+              {{student['name']}}</option>
           </select>
         </div>
         <div *ngIf="selected_student" class="col-5" style="text-align: right;">
@@ -26,6 +28,25 @@
 
       <div *ngIf="!isLoading && selected_student && barChartData.length > 0" class="mt-5 mx-auto" style="width: 800px;">
         <p>{{selected_student.name}} data:</p>
+
+        <!-- summary points -->
+
+
+        <!-- end summary points -->
+
+        <!-- overall health chart -->
+        <canvas baseChart [chartType]="'line'" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+          [legend]="true">
+        </canvas>
+
+        <!-- end overall health chart -->
+
+
+        <!-- improvements / concerns -->
+
+
+        <!-- end improvements / concerns -->
+
         <!-- <img src="assets/line-chart.png" alt="Responsive image" style="width: 100%"> -->
 
         <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
