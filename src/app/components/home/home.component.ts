@@ -141,6 +141,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
       let falseData = [];
 
       let averageData = [];
+      let questionIdToAnswerList = new Map();
+      let questionIdToQuestion = new Map();
 
       for (const survey of surveys) {
 
@@ -170,6 +172,20 @@ export class HomeComponent implements OnInit, AfterViewInit {
         for (const response of survey['surveyResponses']['items']) {
           totalWeight = totalWeight + response['question']['weight'];
           responseCount++;
+
+          //question to response map
+          if (questionIdToQuestion.has(response['question']['id'])) {
+            let answers = questionIdToAnswerList.get(response['question']['id']);
+            answers.push(response['response']);
+            questionIdToAnswerList.set(response['question']['id'], answers);
+          }
+          else {
+            let answers = [];
+            answers.push(response['response']);
+            questionIdToAnswerList.set(response['question']['id'], answers);
+            questionIdToQuestion.set(response['question']['id'], response['question']);
+          }
+
         }
 
         if (responseCount > 0) {
@@ -179,6 +195,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
           averageData.push(0);
         }
       }
+
+      console.log('questionIdToAnswerList', questionIdToAnswerList);
+      console.log('questionIdToQuestion', questionIdToQuestion);
 
       this.lineChartData = [
         {data: averageData, label: 'Mental Health Issue Indication (0-5)'}
