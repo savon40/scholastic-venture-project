@@ -87,9 +87,53 @@
             </p>
           </div>
         </div>
+        <!-- end Icon Cards-->
 
+        <!-- Behavioral Intervention Plan -->
+        <div class="card mb-3" *ngIf="!isLoading" style="width: 100%;">
+          <div class="card-header">
+            Behavioral Intervention Plan
+            <a
+              href="https://www.understood.org/en/learning-attention-issues/treatments-approaches/educational-strategies/behavior-intervention-plans-what-you-need-to-know">(B.I.P.)</a>
+          </div>
+          <div class="card-body" style="font-size: 10px;">
+            <p>
+              Lorem ipsum dolor amet chicharrones chia mustache pop-up jianbing PBR&B. Venmo YOLO selfies messenger bag
+              locavore disrupt banh mi shaman pour-over man braid vape kickstarter. Biodiesel pok pok VHS PBR&B
+              adaptogen, put a bird on it slow-carb bespoke. Woke ugh pour-over salvia pitchfork +1 health goth cardigan
+              iPhone letterpress XOXO. Fanny pack vaporware chicharrones aesthetic, master cleanse pug helvetica pickled
+              gastropub hell of quinoa occupy mustache. Banh mi brunch letterpress quinoa next level adaptogen messenger
+              bag hella activated charcoal. Wayfarers sriracha schlitz, marfa swag hexagon af hell of meh PBR&B deep v.
+            </p>
+            <p>
+              Lorem ipsum dolor amet chicharrones chia mustache pop-up jianbing PBR&B. Venmo YOLO selfies messenger bag
+              locavore disrupt banh mi shaman pour-over man braid vape kickstarter. Biodiesel pok pok VHS PBR&B
+              adaptogen, put a bird on it slow-carb bespoke. Woke ugh pour-over salvia pitchfork +1 health goth cardigan
+              iPhone letterpress XOXO. Fanny pack vaporware chicharrones aesthetic, master cleanse pug helvetica pickled
+              gastropub hell of quinoa occupy mustache. Banh mi brunch letterpress quinoa next level adaptogen messenger
+              bag hella activated charcoal. Wayfarers sriracha schlitz, marfa swag hexagon af hell of meh PBR&B deep v.
+            </p>
+            <p>
+              Lorem ipsum dolor amet chicharrones chia mustache pop-up jianbing PBR&B. Venmo YOLO selfies messenger bag
+              locavore disrupt banh mi shaman pour-over man braid vape kickstarter. Biodiesel pok pok VHS PBR&B
+              adaptogen, put a bird on it slow-carb bespoke. Woke ugh pour-over salvia pitchfork +1 health goth cardigan
+              iPhone letterpress XOXO. Fanny pack vaporware chicharrones aesthetic, master cleanse pug helvetica pickled
+              gastropub hell of quinoa occupy mustache. Banh mi brunch letterpress quinoa next level adaptogen messenger
+              bag hella activated charcoal. Wayfarers sriracha schlitz, marfa swag hexagon af hell of meh PBR&B deep v.
+            </p>
 
-        <!-- Area Chart Example-->
+          </div>
+          <div class="card-footer">
+            <p class="font-italic" style="font-size: 10px; color: #dc3545; margin-bottom: 0px;">
+              Note: Scholastic is forming general plan based on the information given in this survey. We cannot
+              guarantee suggestions will help, as each child is different.
+              If unsure about the right approach, please seek help from a counselor or another qualified individual.
+            </p>
+          </div>
+        </div>
+        <!-- End Behavioral Intervention Plan -->
+
+        <!-- Line Chart -->
         <div class="card mb-3" *ngIf="!isLoading">
           <div class="card-header">
             Mental Health Issue Indicator Over Time
@@ -108,11 +152,13 @@
           <div class="card-footer small text-muted" *ngIf="surveys_taken.length > 0">Updated
             {{surveys_taken[0]['date_taken']}}</div>
         </div>
+        <!-- End Line Chart -->
 
-        <!-- DataTables Example -->
+
+
+        <!-- Survey Table -->
         <div class="card mb-3" *ngIf="!isLoading" style="width: 100%;">
-          <div class="card-header">
-            Surveys Taken</div>
+          <div class="card-header">Surveys Taken</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -147,6 +193,7 @@
             </div>
           </div>
         </div>
+        <!-- End Survey Table -->
 
       </div>
       <!-- /.container-fluid -->

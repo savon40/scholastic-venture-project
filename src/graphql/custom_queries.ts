@@ -1,4 +1,4 @@
-export const listSurveyQuestionsWithAnswers = `query ListSurveyQuestions(
+export const listSurveyQuestionsWithAnswers = `query ListSurveyQuestionsWithAnswers(
   $filter: ModelSurveyQuestionFilterInput
   $limit: Int
   $nextToken: String
@@ -23,7 +23,7 @@ export const listSurveyQuestionsWithAnswers = `query ListSurveyQuestions(
 }
 `;
 
-export const getStudentAndSurveys = `query GetStudent($id: ID!) {
+export const getStudentAndSurveys = `query GetStudentAndSurveys($id: ID!) {
   getStudent(id: $id) {
     id
     name

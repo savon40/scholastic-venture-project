@@ -123,6 +123,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.display_questions.length = 0;
     this.questionIdToAnswerList = new Map();
     this.questionIdToQuestion = new Map();
+    this.lineChartLabels = [];
+    this.lineChartData = null;
 
     //get the student and survey information
     await API.graphql(graphqlOperation(custom_queries.getStudentAndSurveys, { id: studentId })).then(student_surveys => {
@@ -156,8 +158,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         let totalWeight = 0;
         for (const response of survey['surveyResponses']['items']) {
 
-          console.log('response', response);
-
+          //only add to weight if they answered true, otherwise there is no indication
           if (response['response'] == 'true') {
             totalWeight = totalWeight + response['question']['weight'];
           }

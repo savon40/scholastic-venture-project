@@ -117,20 +117,8 @@ export class SurveyComponent implements OnInit {
     }
     const updateSurvey = await API.graphql(graphqlOperation(mutations.updateSurvey, { input: updateSurveyInfo }));
     console.log('updatedSurvey', updateSurvey);
+    this.returnHome();
 
-
-    //get the number of trues:
-    if (numTrue > 5) {
-      this.response = responses.get("High");
-    }
-    else if (numTrue >= 3) {
-      this.response = responses.get("Medium")
-    }
-    else {
-      this.response = responses.get("Low");
-    }
-    this.survey_submitted = true;
-    this.isLoading = false;
   }
 
   returnHome() {
