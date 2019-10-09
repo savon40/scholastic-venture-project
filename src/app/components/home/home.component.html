@@ -4,7 +4,7 @@
   <ul class="sidebar navbar-nav">
 
     <li class="nav-item" *ngFor="let student of student_list">
-      <a class="nav-link" (click)="changeStudent()">
+      <a class="nav-link" (click)="changeStudent(student)">
         {{student['name']}}
       </a>
     </li>
@@ -22,8 +22,15 @@
         <li class="breadcrumb-item active">Overview</li>
       </ol>
 
+      <!-- loading spinner -->
+      <div *ngIf="isLoading" class="col-md-12 col-sm-12 mt-5 d-flex justify-content-center" style="width: 800px;">
+        <div class="spinner-border text-primary justify-content-center" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+
       <!-- Icon Cards-->
-      <div class="row">
+      <div class="row" *ngIf="!isLoading">
         <div class="col-xl-3 col-sm-6 mb-3">
           <div class="card text-white bg-primary o-hidden h-100">
             <div class="card-body">
@@ -91,18 +98,27 @@
       </div>
 
       <!-- Area Chart Example-->
-      <div class="card mb-3">
+      <div class="card mb-3" *ngIf="!isLoading">
         <div class="card-header">
-          <i class="fas fa-chart-area"></i>
-          Area Chart Example</div>
-        <div class="card-body">
-          <canvas id="myAreaChart" width="100%" height="30"></canvas>
+          Mental Health Issue Indicator Over Time
+          <span class="header-small">
+            All questions available and answered are weighted on a 1-5 scale based on severity. The higher the number,
+            the more likely this question is an indicator of mental health issues.
+            This chart represents the average weight of all questions answered in surveys over time.
+          </span>
         </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        <div class="card-body" *ngIf="lineChartData">
+          <canvas baseChart width="100%" height="30" [datasets]="lineChartData" [labels]="lineChartLabels"
+            [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+            [chartType]="lineChartType"></canvas>
+        </div>
+
+        <div class="card-footer small text-muted" *ngIf="surveys_taken.length > 0">Updated
+          {{surveys_taken[0]['date_taken']}}</div>
       </div>
 
       <!-- DataTables Example -->
-      <div class="card mb-3">
+      <div class="card mb-3" *ngIf="!isLoading">
         <div class="card-header">
           Surveys Taken</div>
         <div class="card-body">
@@ -134,25 +150,10 @@
                   <td>{{survey['num_false']}}</td>
                   <td>{{survey['health_score']}}</td>
                 </tr>
-                <!-- <tr>
-                  <td>Garrett Winters</td>
-                  <td>Accountant</td>
-                  <td>Tokyo</td>
-                  <td>63</td>
-                  <td>2011/07/25</td>
-                </tr>
-                <tr>
-                  <td>Ashton Cox</td>
-                  <td>Junior Technical Author</td>
-                  <td>San Francisco</td>
-                  <td>66</td>
-                  <td>2009/01/12</td>
-                </tr> -->
               </tbody>
             </table>
           </div>
         </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
       </div>
 
     </div>

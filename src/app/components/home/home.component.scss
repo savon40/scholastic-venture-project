@@ -4334,6 +4334,7 @@ input[type="button"].btn-block {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
 .nav-link:hover, .nav-link:focus {
@@ -4928,6 +4929,11 @@ input[type="button"].btn-block {
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0.03);
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-header .header-small {
+  display: block;
+  font-size: 10px;
 }
 
 .card-header:first-child {
@@ -10373,7 +10379,7 @@ button.bg-dark:focus {
 }
 
 .text-primary {
-  color: #007bff !important;
+  color: #e81111 !important;
 }
 
 a.text-primary:hover, a.text-primary:focus {

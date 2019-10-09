@@ -9,6 +9,9 @@ import { StudentService } from '../student.service';
 import { histories } from '../default_text';
 import { Survey } from '../survey/survey.model';
 
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import { Color, BaseChartDirective, Label } from 'ng2-charts';
+
 // using chart:
 // https://alligator.io/angular/chartjs-ng2-charts/
 
@@ -34,51 +37,38 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private loginSubscription: Subscription;
   private studentSubscription: Subscription;
 
-  //bar chart
-  public barChartOptions = {
-    scaleShowVerticalLines: false,
-    responsive: true
-  };
-  public barChartLabels = []; //'Sept', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'
-  public barChartType = 'bar';
-  public barChartLegend = true;
-  public barChartData;
-  /*
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Mental Health'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Grades'}
-  */
-  // end bar chart
-
   // line chart
-  public lineChartOptions = { responsive: true, color: '#e81111' };
+  public lineChartType = 'line';
+  public lineChartOptions = {
+    responsive: true,
+    color: '#e81111',
+    scales : {
+      yAxes: [{
+         ticks: {
+            steps : 5,
+            stepValue : 1,
+            max : 5,
+            beginAtZero: true
+          }
+      }]
+    }
+  };
   public lineChartLabels = [];
+  public lineChartLegend = false;
   public lineChartData;
-  // lineChartData = [
-  //   { data: [3.2, 4.1, 2.1, 1.1], label: 'Mental Health Issue Indication (0-5)' }
-  // ];
-  // lineChartLabels = ['January', 'February', 'Mars', 'April'];
+  public lineChartColors: Color[] = [
+    { // red
+      backgroundColor: 'transparent',
+      borderColor: 'red',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#e81111',
+      pointHoverBorderColor: '#e81111'
+    }
+  ];
   // end line chart
 
-  //pie chart
-  // public pieChartLabels = ['Q1', 'Q2', 'Q3', 'Q4'];
-  // public pieChartData = [120, 150, 180, 90];
-  // public pieChartType = 'pie';
-  //end pie chart
 
-  //radar chart
-  // public radarChartLabels = ['Q1', 'Q2', 'Q3', 'Q4'];
-  // public radarChartData = [
-  //   { data: [120, 130, 180, 70], label: '2017' },
-  //   { data: [90, 150, 200, 45], label: '2018' }
-  // ];
-  // public radarChartType = 'radar';
-  // end radar chart
-
-  //donut chart
-  // public doughnutChartLabels = ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
-  // public doughnutChartData = [120, 150, 180, 90];
-  // public doughnutChartType = 'doughnut';
-  //end donut chart
 
   constructor(
     private authService: AuthService,
@@ -106,7 +96,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log('on view init', this.studentService.getStudentInfo());
     if (this.studentService.getStudentInfo()) {
       this.selected_student = this.studentService.getStudentInfo();
       this.getStudentSurveyInfo(this.selected_student.id);
@@ -117,14 +106,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/new-survey']);
   }
 
-  changeStudent(event: any) {
-
-    if (event === 'Select A Student') {
-      this.selected_student = null;
-    }
-    else if (event) {
+  changeStudent(student: any) {
+    if (student) {
       this.isLoading = true;
-      this.selected_student = JSON.parse(event);
+      this.selected_student = student;
       this.studentService.setStudentInfo(this.selected_student);
       this.getStudentSurveyInfo(this.selected_student.id);
     }
@@ -133,8 +118,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   async getStudentSurveyInfo(studentId: String) {
 
     //clear lists before beginning
-    this.barChartLabels = [];
-    this.barChartData = [];
+    this.surveys_taken.length = 0;
 
     //get the student and survey information
     await API.graphql(graphqlOperation(custom_queries.getStudentAndSurveys, { id: studentId })).then(student_surveys => {
@@ -143,13 +127,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
       surveys.sort(function (a, b) {
         return (a['createdAt'] < b['createdAt']) ? -1 : ((a['createdAt'] > b['createdAt']) ? 1 : 0);
       });
-
-      //reverse sort for survey display
-      // this.surveys_taken = surveys.reverse();
-      // console.log('this.surveys_taken', this.surveys_taken);
-
-      let trueData = [];
-      let falseData = [];
 
       let averageData = [];
       let questionIdToAnswerList = new Map();
@@ -170,12 +147,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         if (month < 10) {
           monthString = '0' + month;
         }
-        this.barChartLabels.push(monthString + '-' + dtString + '-' + year);
         this.lineChartLabels.push(monthString + '-' + dtString + '-' + year);
-
-        //true and false for bar chart - may remove
-        trueData.push(survey['numTrue'] != null ? survey['numTrue'] : 0);
-        falseData.push(survey['numFalse'] != null ? survey['numFalse'] : 0);
 
         //loop through responses / questions to calculate average
         let responseCount = 0;
@@ -196,16 +168,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
             questionIdToAnswerList.set(response['question']['id'], answers);
             questionIdToQuestion.set(response['question']['id'], response['question']);
           }
-
         }
 
+        //set the average
         let average = 0;
-
         if (responseCount > 0) {
           average = Number((totalWeight / responseCount).toFixed(2));
         }
         averageData.push(average);
 
+        //create survey records
         this.surveys_taken.push(
           new Survey(new Date(survey['createdAt']).toLocaleString(), survey['numTrue'], survey['numFalse'], average)
         );
@@ -213,21 +185,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
       console.log('questionIdToAnswerList', questionIdToAnswerList);
       console.log('questionIdToQuestion', questionIdToQuestion);
-      console.log('surveys_taken', this.surveys_taken);
+
+      //reverse because we want to display the most recent first
       this.surveys_taken = this.surveys_taken.reverse();
       console.log('surveys_taken', this.surveys_taken);
 
 
       this.lineChartData = [
-        {data: averageData, label: 'Mental Health Issue Indication (0-5)'}
+        {data: averageData}
       ]
 
-      this.barChartData = [
-        { data: trueData, label: 'True Answers' },
-        { data: falseData, label: 'False Answers' },
-      ]
 
-      this.history = histories.get('bad');
+      // this.history = histories.get('bad');
       this.isLoading = false;
     });
   }
