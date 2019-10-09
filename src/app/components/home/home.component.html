@@ -111,30 +111,30 @@
               <thead>
                 <tr>
                   <th>Date Taken</th>
-                  <th>Questions Answered</th>
-                  <th>Number of Trues</th>
-                  <th>Number of Falses</th>
+                  <th># Questions Answered</th>
+                  <th># Trues</th>
+                  <th># Falses</th>
                   <th>Mental Health Issue Indication</th>
                 </tr>
               </thead>
               <tfoot>
                 <tr>
                   <th>Date Taken</th>
-                  <th>Questions Answered</th>
-                  <th>Number of Trues</th>
-                  <th>Number of Falses</th>
+                  <th># Questions Answered</th>
+                  <th># Trues</th>
+                  <th># Falses</th>
                   <th>Mental Health Issue Indication</th>
                 </tr>
               </tfoot>
               <tbody>
-                <tr>
-                  <td>Tiger Nixon</td>
-                  <td>System Architect</td>
-                  <td>Edinburgh</td>
-                  <td>61</td>
-                  <td>2011/04/25</td>
+                <tr *ngFor="let survey of surveys_taken">
+                  <td>{{survey['date_taken']}}</td>
+                  <td>{{survey['num_answered']}}</td>
+                  <td>{{survey['num_true']}}</td>
+                  <td>{{survey['num_false']}}</td>
+                  <td>{{survey['health_score']}}</td>
                 </tr>
-                <tr>
+                <!-- <tr>
                   <td>Garrett Winters</td>
                   <td>Accountant</td>
                   <td>Tokyo</td>
@@ -147,7 +147,7 @@
                   <td>San Francisco</td>
                   <td>66</td>
                   <td>2009/01/12</td>
-                </tr>
+                </tr> -->
               </tbody>
             </table>
           </div>

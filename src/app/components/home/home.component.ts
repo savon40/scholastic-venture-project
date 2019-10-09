@@ -7,6 +7,7 @@ import * as queries from '../../../graphql/queries';
 import * as custom_queries from '../../../graphql/custom_queries';
 import { StudentService } from '../student.service';
 import { histories } from '../default_text';
+import { Survey } from '../survey/survey.model';
 
 // using chart:
 // https://alligator.io/angular/chartjs-ng2-charts/
@@ -26,6 +27,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   isLoading = false;
   selected_student: any;
   student_list = [];
+  surveys_taken: Survey[] = [];
+
+
   history: any;
   private loginSubscription: Subscription;
   private studentSubscription: Subscription;
@@ -140,6 +144,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
         return (a['createdAt'] < b['createdAt']) ? -1 : ((a['createdAt'] > b['createdAt']) ? 1 : 0);
       });
 
+      //reverse sort for survey display
+      // this.surveys_taken = surveys.reverse();
+      // console.log('this.surveys_taken', this.surveys_taken);
+
       let trueData = [];
       let falseData = [];
 
@@ -191,16 +199,24 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
         }
 
+        let average = 0;
+
         if (responseCount > 0) {
-          averageData.push((totalWeight / responseCount).toFixed(2));
+          average = Number((totalWeight / responseCount).toFixed(2));
         }
-        else {
-          averageData.push(0);
-        }
+        averageData.push(average);
+
+        this.surveys_taken.push(
+          new Survey(new Date(survey['createdAt']).toLocaleString(), survey['numTrue'], survey['numFalse'], average)
+        );
       }
 
       console.log('questionIdToAnswerList', questionIdToAnswerList);
       console.log('questionIdToQuestion', questionIdToQuestion);
+      console.log('surveys_taken', this.surveys_taken);
+      this.surveys_taken = this.surveys_taken.reverse();
+      console.log('surveys_taken', this.surveys_taken);
+
 
       this.lineChartData = [
         {data: averageData, label: 'Mental Health Issue Indication (0-5)'}
@@ -222,10 +238,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
       console.log('student_list', this.student_list);
       console.log('this.studentService.getStudentInfo()', this.studentService.getStudentInfo());
 
+      //set first student
       if (!this.studentService.getStudentInfo()) {
-        console.log('i am in here', this.student_list[0]);
         this.studentService.setStudentInfo(this.student_list[0]);
         this.selected_student = this.studentService.getStudentInfo();
+        this.getStudentSurveyInfo(this.selected_student.id);
       }
     });
   }
