@@ -11,6 +11,9 @@ import { histories } from '../default_text';
 // using chart:
 // https://alligator.io/angular/chartjs-ng2-charts/
 
+// more and probably better chart usage:
+//https://valor-software.com/ng2-charts/#LineChart
+
 
 
 @Component({
@@ -43,7 +46,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   // end bar chart
 
   // line chart
-  public lineChartOptions = { responsive: true };
+  public lineChartOptions = { responsive: true, color: '#e81111' };
   public lineChartLabels = [];
   public lineChartData;
   // lineChartData = [
@@ -217,6 +220,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
     await API.graphql(graphqlOperation(queries.listStudents)).then(students => {
       this.student_list = students['data']['listStudents']['items'];
       console.log('student_list', this.student_list);
+      console.log('this.studentService.getStudentInfo()', this.studentService.getStudentInfo());
+
+      if (!this.studentService.getStudentInfo()) {
+        console.log('i am in here', this.student_list[0]);
+        this.studentService.setStudentInfo(this.student_list[0]);
+        this.selected_student = this.studentService.getStudentInfo();
+      }
     });
   }
 

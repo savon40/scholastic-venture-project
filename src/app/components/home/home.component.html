@@ -1,89 +1,164 @@
-<div class="container">
-  <div class="row">
-    <div class="jumbotron mt-5 mx-auto">
+<div id="wrapper">
 
-      <div class="form-row sticky-top" style="background-color: #e9ecef; padding: 5px 0;">
-        <div class="col-7">
-          <select class="custom-select w-50" (change)="changeStudent($event.target.value)">
-            <option>Select A Student</option>
-            <option *ngFor="let student of student_list"
-              [selected]="selected_student != null && student['id'] === selected_student.id" value="{{student |json}}">
-              {{student['name']}}</option>
-          </select>
+  <!-- Sidebar -->
+  <ul class="sidebar navbar-nav">
+
+    <li class="nav-item" *ngFor="let student of student_list">
+      <a class="nav-link" (click)="changeStudent()">
+        {{student['name']}}
+      </a>
+    </li>
+  </ul>
+
+  <div id="content-wrapper">
+
+    <div class="container-fluid">
+
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb" *ngIf="selected_student">
+        <li class="breadcrumb-item">
+          {{selected_student.name}}
+        </li>
+        <li class="breadcrumb-item active">Overview</li>
+      </ol>
+
+      <!-- Icon Cards-->
+      <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-primary o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fas fa-fw fa-comments"></i>
+              </div>
+              <div class="mr-5">26 New Messages!</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fas fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
         </div>
-        <div *ngIf="selected_student" class="col-5" style="text-align: right;">
-          <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary" (click)="newSurvey()">Fill out new Survey</button>
-            <button type="button" class="btn btn-secondary">Email Parent(s)</button>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-warning o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fas fa-fw fa-list"></i>
+              </div>
+              <div class="mr-5">11 New Tasks!</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fas fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-success o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fas fa-fw fa-shopping-cart"></i>
+              </div>
+              <div class="mr-5">123 New Orders!</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fas fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-danger o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fas fa-fw fa-life-ring"></i>
+              </div>
+              <div class="mr-5">13 New Tickets!</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fas fa-angle-right"></i>
+              </span>
+            </a>
           </div>
         </div>
       </div>
 
-      <!-- col-md-12 col-sm-12 mt-5 d-flex  -->
-      <div *ngIf="isLoading" class="col-md-12 col-sm-12 mt-5 d-flex justify-content-center" style="width: 800px;">
-        <div class="spinner-border text-primary justify-content-center" role="status">
-          <span class="sr-only">Loading...</span>
+      <!-- Area Chart Example-->
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-chart-area"></i>
+          Area Chart Example</div>
+        <div class="card-body">
+          <canvas id="myAreaChart" width="100%" height="30"></canvas>
         </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
       </div>
 
-      <div *ngIf="!isLoading && selected_student && barChartData.length > 0" class="mt-5 mx-auto" style="width: 800px;">
-        <p>{{selected_student.name}} data:</p>
-
-        <!-- summary points -->
-
-
-        <!-- end summary points -->
-
-        <!-- overall health chart -->
-        <canvas baseChart [chartType]="'line'" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-          [legend]="true">
-        </canvas>
-
-        <!-- end overall health chart -->
-
-
-        <!-- improvements / concerns -->
-
-
-        <!-- end improvements / concerns -->
-
-        <!-- <img src="assets/line-chart.png" alt="Responsive image" style="width: 100%"> -->
-
-        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-          [legend]="barChartLegend" [chartType]="barChartType">
-        </canvas>
-
-        <div style="width: 100%; border-bottom: 1px solid;"></div>
-
-        <div class="mt-5 bg-light" style="width: 800px; padding: 50px 0;">
-          <h4>{{history.title}}</h4>
-          <p>{{history.paragraph_one}}</p>
-          <p>{{history.paragraph_two}}</p>
+      <!-- DataTables Example -->
+      <div class="card mb-3">
+        <div class="card-header">
+          Surveys Taken</div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Date Taken</th>
+                  <th>Questions Answered</th>
+                  <th>Number of Trues</th>
+                  <th>Number of Falses</th>
+                  <th>Mental Health Issue Indication</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th>Date Taken</th>
+                  <th>Questions Answered</th>
+                  <th>Number of Trues</th>
+                  <th>Number of Falses</th>
+                  <th>Mental Health Issue Indication</th>
+                </tr>
+              </tfoot>
+              <tbody>
+                <tr>
+                  <td>Tiger Nixon</td>
+                  <td>System Architect</td>
+                  <td>Edinburgh</td>
+                  <td>61</td>
+                  <td>2011/04/25</td>
+                </tr>
+                <tr>
+                  <td>Garrett Winters</td>
+                  <td>Accountant</td>
+                  <td>Tokyo</td>
+                  <td>63</td>
+                  <td>2011/07/25</td>
+                </tr>
+                <tr>
+                  <td>Ashton Cox</td>
+                  <td>Junior Technical Author</td>
+                  <td>San Francisco</td>
+                  <td>66</td>
+                  <td>2009/01/12</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-
-        <!-- <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"></canvas>
-
-        <div style="width: 100%; border-bottom: 1px solid;"></div>
-
-        <canvas baseChart [datasets]="radarChartData" [labels]="radarChartLabels" [chartType]="radarChartType"></canvas>
-
-        <div style="width: 100%; border-bottom: 1px solid;"></div>
-
-        <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels"
-          [chartType]="doughnutChartType"></canvas> -->
-
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
       </div>
-      <div *ngIf="!selected_student && !isLoading" class="mt-5 bg-light" style="width: 800px; padding: 50px 0;">
-        <p class="text-center">Select a student to view historical data</p>
-      </div>
+
     </div>
+    <!-- /.container-fluid -->
+
   </div>
+  <!-- /.content-wrapper -->
 
-  <!-- <div class="row">
-    <div style="display: block">
-      <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-        [legend]="barChartLegend" [chartType]="barChartType">
-      </canvas>
-    </div>
-  </div> -->
 </div>

@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="row">
+    <div class="jumbotron mt-5 mx-auto">
+
+      <div class="form-row sticky-top" style="background-color: #e9ecef; padding: 5px 0;">
+        <div class="col-7">
+          <select class="custom-select w-50" (change)="changeStudent($event.target.value)">
+            <option>Select A Student</option>
+            <option *ngFor="let student of student_list"
+              [selected]="selected_student != null && student['id'] === selected_student.id" value="{{student |json}}">
+              {{student['name']}}</option>
+          </select>
+        </div>
+        <div *ngIf="selected_student" class="col-5" style="text-align: right;">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" (click)="newSurvey()">Fill out new Survey</button>
+            <button type="button" class="btn btn-secondary">Email Parent(s)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- col-md-12 col-sm-12 mt-5 d-flex  -->
+      <div *ngIf="isLoading" class="col-md-12 col-sm-12 mt-5 d-flex justify-content-center" style="width: 800px;">
+        <div class="spinner-border text-primary justify-content-center" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+
+      <div *ngIf="!isLoading && selected_student && barChartData.length > 0" class="mt-5 mx-auto" style="width: 800px;">
+        <p>{{selected_student.name}} data:</p>
+
+        <!-- summary points -->
+
+
+        <!-- end summary points -->
+
+        <!-- overall health chart -->
+        <canvas baseChart [chartType]="'line'" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+          [legend]="true">
+        </canvas>
+
+        <!-- end overall health chart -->
+
+
+        <!-- improvements / concerns -->
+
+
+        <!-- end improvements / concerns -->
+
+        <!-- <img src="assets/line-chart.png" alt="Responsive image" style="width: 100%"> -->
+
+        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+          [legend]="barChartLegend" [chartType]="barChartType">
+        </canvas>
+
+        <div style="width: 100%; border-bottom: 1px solid;"></div>
+
+        <div class="mt-5 bg-light" style="width: 800px; padding: 50px 0;">
+          <h4>{{history.title}}</h4>
+          <p>{{history.paragraph_one}}</p>
+          <p>{{history.paragraph_two}}</p>
+        </div>
+
+        <!-- <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"></canvas>
+
+        <div style="width: 100%; border-bottom: 1px solid;"></div>
+
+        <canvas baseChart [datasets]="radarChartData" [labels]="radarChartLabels" [chartType]="radarChartType"></canvas>
+
+        <div style="width: 100%; border-bottom: 1px solid;"></div>
+
+        <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels"
+          [chartType]="doughnutChartType"></canvas> -->
+
+      </div>
+      <div *ngIf="!selected_student && !isLoading" class="mt-5 bg-light" style="width: 800px; padding: 50px 0;">
+        <p class="text-center">Select a student to view historical data</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="row">
+    <div style="display: block">
+      <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+        [legend]="barChartLegend" [chartType]="barChartType">
+      </canvas>
+    </div>
+  </div> -->
+</div>
