@@ -21,6 +21,7 @@ type SurveyResponse @model {
 type SurveyQuestion @model {
   id: ID!
   question: String!
+  displayString: String
   responseType: String
   weight: Int
   responses: [SurveyResponse] @connection(name: "QuestionResponses")

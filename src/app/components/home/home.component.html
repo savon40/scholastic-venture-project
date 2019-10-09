@@ -15,11 +15,17 @@
     <div class="container-fluid">
 
       <!-- Breadcrumbs-->
-      <ol class="breadcrumb" *ngIf="selected_student">
-        <li class="breadcrumb-item">
-          {{selected_student.name}}
-        </li>
-        <li class="breadcrumb-item active">Overview</li>
+      <ol class="breadcrumb" *ngIf="selected_student" style="padding: 0.5rem 1rem;">
+        <div style="width: 50%; margin-top: 10px;">
+          <li class="breadcrumb-item" style="display: inline-block">
+            {{selected_student.name}}
+          </li>
+          <li class="breadcrumb-item active" style="display: inline-block">Overview</li>
+        </div>
+        <div class="pull-right" style="width: 50%; text-align: right;">
+          <button type="button" class="btn btn-primary" (click)="newSurvey()">Fill out new Survey</button>
+        </div>
+
       </ol>
 
       <!-- loading spinner -->
@@ -31,135 +37,121 @@
 
       <!-- Icon Cards-->
       <div class="row" *ngIf="!isLoading">
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-primary o-hidden h-100">
+        <div class="col-xl-3 col-sm-6 mb-3" *ngFor="let question of display_questions">
+
+          <div *ngIf="question['trend'] == 'steadily_good'" class="card text-white bg-primary o-hidden h-100">
             <div class="card-body">
               <div class="card-body-icon">
                 <i class="fas fa-fw fa-comments"></i>
               </div>
-              <div class="mr-5">26 New Messages!</div>
+              <div class="mr-5">{{question['question_display_string']}}</div>
             </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fas fa-angle-right"></i>
-              </span>
-            </a>
+            <p class="card-footer text-white clearfix small z-1">
+              This has not been an issue for {{selected_student.name}}.
+            </p>
           </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-warning o-hidden h-100">
+
+          <div *ngIf="question['trend'] == 'steadily_bad'" class="card text-white bg-danger o-hidden h-100">
             <div class="card-body">
               <div class="card-body-icon">
-                <i class="fas fa-fw fa-list"></i>
+                <i class="fas fa-fw fa-comments"></i>
               </div>
-              <div class="mr-5">11 New Tasks!</div>
+              <div class="mr-5">{{question['question_display_string']}}</div>
             </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fas fa-angle-right"></i>
-              </span>
-            </a>
+            <p class="card-footer text-white clearfix small z-1">
+              This has been a consistent issue for {{selected_student.name}}.
+            </p>
           </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-success o-hidden h-100">
+
+          <div *ngIf="question['trend'] == 'improvement'" class="card text-white bg-success o-hidden h-100">
             <div class="card-body">
               <div class="card-body-icon">
-                <i class="fas fa-fw fa-shopping-cart"></i>
+                <i class="fas fa-fw fa-comments"></i>
               </div>
-              <div class="mr-5">123 New Orders!</div>
+              <div class="mr-5">{{question['question_display_string']}}</div>
             </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fas fa-angle-right"></i>
-              </span>
-            </a>
+            <p class="card-footer text-white clearfix small z-1">
+              {{selected_student.name}} was having issues here, but is showing improvement.
+            </p>
           </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-danger o-hidden h-100">
+
+          <div *ngIf="question['trend'] == 'deterioration'" class="card text-white bg-warning o-hidden h-100">
             <div class="card-body">
               <div class="card-body-icon">
-                <i class="fas fa-fw fa-life-ring"></i>
+                <i class="fas fa-fw fa-comments"></i>
               </div>
-              <div class="mr-5">13 New Tickets!</div>
+              <div class="mr-5">{{question['question_display_string']}}</div>
             </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fas fa-angle-right"></i>
-              </span>
-            </a>
+            <p class="card-footer text-white clearfix small z-1">
+              {{selected_student.name}} may be starting to have issues here, keep an eye on this.
+            </p>
           </div>
         </div>
-      </div>
 
-      <!-- Area Chart Example-->
-      <div class="card mb-3" *ngIf="!isLoading">
-        <div class="card-header">
-          Mental Health Issue Indicator Over Time
-          <span class="header-small">
-            All questions available and answered are weighted on a 1-5 scale based on severity. The higher the number,
-            the more likely this question is an indicator of mental health issues.
-            This chart represents the average weight of all questions answered in surveys over time.
-          </span>
+
+        <!-- Area Chart Example-->
+        <div class="card mb-3" *ngIf="!isLoading">
+          <div class="card-header">
+            Mental Health Issue Indicator Over Time
+            <span class="header-small">
+              All questions available and answered are weighted on a 1-5 scale based on severity. The higher the number,
+              the more likely this question is an indicator of mental health issues.
+              This chart represents the average weight of all questions answered in surveys over time.
+            </span>
+          </div>
+          <div class="card-body" *ngIf="lineChartData">
+            <canvas baseChart width="100%" height="30" [datasets]="lineChartData" [labels]="lineChartLabels"
+              [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+              [chartType]="lineChartType"></canvas>
+          </div>
+
+          <div class="card-footer small text-muted" *ngIf="surveys_taken.length > 0">Updated
+            {{surveys_taken[0]['date_taken']}}</div>
         </div>
-        <div class="card-body" *ngIf="lineChartData">
-          <canvas baseChart width="100%" height="30" [datasets]="lineChartData" [labels]="lineChartLabels"
-            [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
-            [chartType]="lineChartType"></canvas>
-        </div>
 
-        <div class="card-footer small text-muted" *ngIf="surveys_taken.length > 0">Updated
-          {{surveys_taken[0]['date_taken']}}</div>
-      </div>
-
-      <!-- DataTables Example -->
-      <div class="card mb-3" *ngIf="!isLoading">
-        <div class="card-header">
-          Surveys Taken</div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                <tr>
-                  <th>Date Taken</th>
-                  <th># Questions Answered</th>
-                  <th># Trues</th>
-                  <th># Falses</th>
-                  <th>Mental Health Issue Indication</th>
-                </tr>
-              </thead>
-              <tfoot>
-                <tr>
-                  <th>Date Taken</th>
-                  <th># Questions Answered</th>
-                  <th># Trues</th>
-                  <th># Falses</th>
-                  <th>Mental Health Issue Indication</th>
-                </tr>
-              </tfoot>
-              <tbody>
-                <tr *ngFor="let survey of surveys_taken">
-                  <td>{{survey['date_taken']}}</td>
-                  <td>{{survey['num_answered']}}</td>
-                  <td>{{survey['num_true']}}</td>
-                  <td>{{survey['num_false']}}</td>
-                  <td>{{survey['health_score']}}</td>
-                </tr>
-              </tbody>
-            </table>
+        <!-- DataTables Example -->
+        <div class="card mb-3" *ngIf="!isLoading" style="width: 100%;">
+          <div class="card-header">
+            Surveys Taken</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Date Taken</th>
+                    <th># Questions Answered</th>
+                    <th># Trues</th>
+                    <th># Falses</th>
+                    <th>Mental Health Issue Indication</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Date Taken</th>
+                    <th># Questions Answered</th>
+                    <th># Trues</th>
+                    <th># Falses</th>
+                    <th>Mental Health Issue Indication</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <tr *ngFor="let survey of surveys_taken">
+                    <td>{{survey['date_taken']}}</td>
+                    <td>{{survey['num_answered']}}</td>
+                    <td>{{survey['num_true']}}</td>
+                    <td>{{survey['num_false']}}</td>
+                    <td>{{survey['health_score']}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
+
       </div>
+      <!-- /.container-fluid -->
 
     </div>
-    <!-- /.container-fluid -->
+    <!-- /.content-wrapper -->
 
   </div>
-  <!-- /.content-wrapper -->
-
-</div>

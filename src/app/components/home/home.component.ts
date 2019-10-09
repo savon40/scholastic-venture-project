@@ -8,17 +8,14 @@ import * as custom_queries from '../../../graphql/custom_queries';
 import { StudentService } from '../student.service';
 import { histories } from '../default_text';
 import { Survey } from '../survey/survey.model';
-
-import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, BaseChartDirective, Label } from 'ng2-charts';
+import { Color } from 'ng2-charts';
+import { QuestionDisplay } from '../survey/question_display.model';
 
 // using chart:
 // https://alligator.io/angular/chartjs-ng2-charts/
 
 // more and probably better chart usage:
 //https://valor-software.com/ng2-charts/#LineChart
-
-
 
 @Component({
   selector: 'app-home',
@@ -32,6 +29,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   student_list = [];
   surveys_taken: Survey[] = [];
 
+  display_questions: QuestionDisplay[] = [];
+  questionIdToAnswerList = new Map();
+  questionIdToQuestion = new Map();
 
   history: any;
   private loginSubscription: Subscription;
@@ -42,14 +42,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public lineChartOptions = {
     responsive: true,
     color: '#e81111',
-    scales : {
+    scales: {
       yAxes: [{
-         ticks: {
-            steps : 5,
-            stepValue : 1,
-            max : 5,
-            beginAtZero: true
-          }
+        ticks: {
+          steps: 5,
+          stepValue: 1,
+          max: 5,
+          beginAtZero: true
+        }
       }]
     }
   };
@@ -108,7 +108,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   changeStudent(student: any) {
     if (student) {
-      this.isLoading = true;
       this.selected_student = student;
       this.studentService.setStudentInfo(this.selected_student);
       this.getStudentSurveyInfo(this.selected_student.id);
@@ -117,8 +116,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   async getStudentSurveyInfo(studentId: String) {
 
+    this.isLoading = true;
+
     //clear lists before beginning
     this.surveys_taken.length = 0;
+    this.display_questions.length = 0;
+    this.questionIdToAnswerList = new Map();
+    this.questionIdToQuestion = new Map();
 
     //get the student and survey information
     await API.graphql(graphqlOperation(custom_queries.getStudentAndSurveys, { id: studentId })).then(student_surveys => {
@@ -129,8 +133,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
       });
 
       let averageData = [];
-      let questionIdToAnswerList = new Map();
-      let questionIdToQuestion = new Map();
 
       for (const survey of surveys) {
 
@@ -153,20 +155,25 @@ export class HomeComponent implements OnInit, AfterViewInit {
         let responseCount = 0;
         let totalWeight = 0;
         for (const response of survey['surveyResponses']['items']) {
-          totalWeight = totalWeight + response['question']['weight'];
+
+          console.log('response', response);
+
+          if (response['response'] == 'true') {
+            totalWeight = totalWeight + response['question']['weight'];
+          }
           responseCount++;
 
           //question to response map
-          if (questionIdToQuestion.has(response['question']['id'])) {
-            let answers = questionIdToAnswerList.get(response['question']['id']);
+          if (this.questionIdToQuestion.has(response['question']['id'])) {
+            let answers = this.questionIdToAnswerList.get(response['question']['id']);
             answers.push(response['response']);
-            questionIdToAnswerList.set(response['question']['id'], answers);
+            this.questionIdToAnswerList.set(response['question']['id'], answers);
           }
           else {
             let answers = [];
             answers.push(response['response']);
-            questionIdToAnswerList.set(response['question']['id'], answers);
-            questionIdToQuestion.set(response['question']['id'], response['question']);
+            this.questionIdToAnswerList.set(response['question']['id'], answers);
+            this.questionIdToQuestion.set(response['question']['id'], response['question']);
           }
         }
 
@@ -183,18 +190,21 @@ export class HomeComponent implements OnInit, AfterViewInit {
         );
       }
 
-      console.log('questionIdToAnswerList', questionIdToAnswerList);
-      console.log('questionIdToQuestion', questionIdToQuestion);
+      //display questions
+      this.questionIdToQuestion.forEach((value: any, key: string) => {
+        console.log(key, value['weight']);
+        if (value['weight'] >= 3) {
+          this.display_questions.push(
+            new QuestionDisplay(value, this.questionIdToAnswerList.get(value['id']))
+          );
+        }
+      });
 
-      //reverse because we want to display the most recent first
+      //line chart
+      this.lineChartData = [{ data: averageData }]
+
+      //survey table - reverse because we want to display the most recent first
       this.surveys_taken = this.surveys_taken.reverse();
-      console.log('surveys_taken', this.surveys_taken);
-
-
-      this.lineChartData = [
-        {data: averageData}
-      ]
-
 
       // this.history = histories.get('bad');
       this.isLoading = false;

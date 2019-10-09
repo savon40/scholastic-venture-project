@@ -102,6 +102,7 @@ export const getSurveyResponse = `query GetSurveyResponse($id: ID!) {
     question {
       id
       question
+      displayString
       responseType
       weight
       responses {
@@ -133,6 +134,7 @@ export const listSurveyResponses = `query ListSurveyResponses(
       question {
         id
         question
+        displayString
         responseType
         weight
       }
@@ -145,6 +147,7 @@ export const getSurveyQuestion = `query GetSurveyQuestion($id: ID!) {
   getSurveyQuestion(id: $id) {
     id
     question
+    displayString
     responseType
     weight
     responses {
@@ -174,6 +177,7 @@ export const listSurveyQuestions = `query ListSurveyQuestions(
     items {
       id
       question
+      displayString
       responseType
       weight
       responses {
@@ -194,6 +198,7 @@ export const getPossibleQuestionAnswer = `query GetPossibleQuestionAnswer($id: I
     question {
       id
       question
+      displayString
       responseType
       weight
       responses {
@@ -222,6 +227,7 @@ export const listPossibleQuestionAnswers = `query ListPossibleQuestionAnswers(
       question {
         id
         question
+        displayString
         responseType
         weight
       }

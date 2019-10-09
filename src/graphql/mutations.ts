@@ -142,6 +142,7 @@ export const createSurveyResponse = `mutation CreateSurveyResponse($input: Creat
     question {
       id
       question
+      displayString
       responseType
       weight
       responses {
@@ -175,6 +176,7 @@ export const updateSurveyResponse = `mutation UpdateSurveyResponse($input: Updat
     question {
       id
       question
+      displayString
       responseType
       weight
       responses {
@@ -208,6 +210,7 @@ export const deleteSurveyResponse = `mutation DeleteSurveyResponse($input: Delet
     question {
       id
       question
+      displayString
       responseType
       weight
       responses {
@@ -224,6 +227,7 @@ export const createSurveyQuestion = `mutation CreateSurveyQuestion($input: Creat
   createSurveyQuestion(input: $input) {
     id
     question
+    displayString
     responseType
     weight
     responses {
@@ -248,6 +252,7 @@ export const updateSurveyQuestion = `mutation UpdateSurveyQuestion($input: Updat
   updateSurveyQuestion(input: $input) {
     id
     question
+    displayString
     responseType
     weight
     responses {
@@ -272,6 +277,7 @@ export const deleteSurveyQuestion = `mutation DeleteSurveyQuestion($input: Delet
   deleteSurveyQuestion(input: $input) {
     id
     question
+    displayString
     responseType
     weight
     responses {
@@ -301,6 +307,7 @@ export const createPossibleQuestionAnswer = `mutation CreatePossibleQuestionAnsw
     question {
       id
       question
+      displayString
       responseType
       weight
       responses {
@@ -322,6 +329,7 @@ export const updatePossibleQuestionAnswer = `mutation UpdatePossibleQuestionAnsw
     question {
       id
       question
+      displayString
       responseType
       weight
       responses {
@@ -343,6 +351,7 @@ export const deletePossibleQuestionAnswer = `mutation DeletePossibleQuestionAnsw
     question {
       id
       question
+      displayString
       responseType
       weight
       responses {
