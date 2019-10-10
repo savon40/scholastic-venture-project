@@ -18,6 +18,8 @@ export class StudentService {
   private selectedStudent;
   studentChange: Subject<string> = new Subject<string>();
 
+  private student_bip = [];
+  bipChange: Subject<string> = new Subject<string>();
 
   setStudentInfo(student_info: any) {
     this.selectedStudent = student_info;
@@ -26,4 +28,14 @@ export class StudentService {
   getStudentInfo() {
     return this.selectedStudent;
   }
-}
+
+  addToStudentBIP(text: string, bold: boolean) {
+    this.student_bip.push({text: text, bold: bold});
+  }
+  getStudentBIP() {
+    return this.student_bip;
+  }
+  clearStudentBIP() {
+    this.student_bip.length = 0;
+  }
+ }

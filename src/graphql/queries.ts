@@ -105,6 +105,10 @@ export const getSurveyResponse = `query GetSurveyResponse($id: ID!) {
       displayString
       responseType
       weight
+      suggestionImprovement
+      suggestionDeterioration
+      suggestionSteadyGood
+      suggestionSteadyBad
       responses {
         nextToken
       }
@@ -137,6 +141,10 @@ export const listSurveyResponses = `query ListSurveyResponses(
         displayString
         responseType
         weight
+        suggestionImprovement
+        suggestionDeterioration
+        suggestionSteadyGood
+        suggestionSteadyBad
       }
     }
     nextToken
@@ -150,6 +158,10 @@ export const getSurveyQuestion = `query GetSurveyQuestion($id: ID!) {
     displayString
     responseType
     weight
+    suggestionImprovement
+    suggestionDeterioration
+    suggestionSteadyGood
+    suggestionSteadyBad
     responses {
       items {
         id
@@ -180,6 +192,10 @@ export const listSurveyQuestions = `query ListSurveyQuestions(
       displayString
       responseType
       weight
+      suggestionImprovement
+      suggestionDeterioration
+      suggestionSteadyGood
+      suggestionSteadyBad
       responses {
         nextToken
       }
@@ -201,6 +217,10 @@ export const getPossibleQuestionAnswer = `query GetPossibleQuestionAnswer($id: I
       displayString
       responseType
       weight
+      suggestionImprovement
+      suggestionDeterioration
+      suggestionSteadyGood
+      suggestionSteadyBad
       responses {
         nextToken
       }
@@ -230,6 +250,10 @@ export const listPossibleQuestionAnswers = `query ListPossibleQuestionAnswers(
         displayString
         responseType
         weight
+        suggestionImprovement
+        suggestionDeterioration
+        suggestionSteadyGood
+        suggestionSteadyBad
       }
     }
     nextToken

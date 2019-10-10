@@ -33,6 +33,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   questionIdToAnswerList = new Map();
   questionIdToQuestion = new Map();
 
+  bip = [];
+
   history: any;
   private loginSubscription: Subscription;
   private studentSubscription: Subscription;
@@ -191,14 +193,42 @@ export class HomeComponent implements OnInit, AfterViewInit {
         );
       }
 
-      //display questions
+      //BIP Information
+      if (this.surveys_taken.length == 0) {
+        this.bip.push({
+          bold: true,
+          text: 'You have not filled out any surveys for ' + this.selected_student.name + ' yet. Please fill some out when you get time so we can start creating a plan.'
+        })
+      }
+      else if (this.surveys_taken.length <= 4) {
+        this.bip.push({
+          bold: true,
+          text: 'You have only filled out ' + this.surveys_taken.length + ' survey(s) for' + this.selected_student.name +
+            '. This may not be enough for us to create an accurate plan yet, but we will do our best.'
+        })
+      }
+      else {
+        this.bip.push({
+          bold: true,
+          text: 'You have filled out ' + this.surveys_taken.length + ' survey(s) for' + this.selected_student.name +
+            '. This should be enough for us to get started, but we encourage you to keep filling out surveys to help us improve our plan.'
+        })
+      }
+
+
       this.questionIdToQuestion.forEach((value: any, key: string) => {
         console.log(key, value['weight']);
+
+        //BIP Information and Trends
+
+        //display questions
         if (value['weight'] >= 3) {
           this.display_questions.push(
             new QuestionDisplay(value, this.questionIdToAnswerList.get(value['id']))
           );
         }
+
+        //bip
       });
 
       //line chart

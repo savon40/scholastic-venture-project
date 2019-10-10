@@ -82,8 +82,6 @@ export class SurveyComponent implements OnInit {
 
     for (const question of this.question_list) {
 
-      console.log('question', question);
-
       //if they answered the question, create survey response
       if (value[question['id']]) {
         console.log('value[question]', value[question['id']]);
@@ -103,10 +101,8 @@ export class SurveyComponent implements OnInit {
         }
 
         const newSurveyResponse = await API.graphql(graphqlOperation(mutations.createSurveyResponse, { input: surveyResponseInfo }));
-        console.log('new survey response', newSurveyResponse);
       }
 
-      console.log('numTrue', numTrue);
     }
 
     //update the survey with the number of trues and falses
@@ -115,8 +111,7 @@ export class SurveyComponent implements OnInit {
       numTrue: numTrue,
       numFalse: numFalse
     }
-    const updateSurvey = await API.graphql(graphqlOperation(mutations.updateSurvey, { input: updateSurveyInfo }));
-    console.log('updatedSurvey', updateSurvey);
+    await API.graphql(graphqlOperation(mutations.updateSurvey, { input: updateSurveyInfo }));
     this.returnHome();
 
   }

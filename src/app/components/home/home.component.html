@@ -36,7 +36,7 @@
       </div>
 
       <!-- Icon Cards-->
-      <div class="row" *ngIf="!isLoading">
+      <div class="row" *ngIf="!isLoading && selected_student">
         <div class="col-xl-3 col-sm-6 mb-3" *ngFor="let question of display_questions">
 
           <div *ngIf="question['trend'] == 'steadily_good'" class="card text-white bg-primary o-hidden h-100">
@@ -90,13 +90,19 @@
         <!-- end Icon Cards-->
 
         <!-- Behavioral Intervention Plan -->
-        <div class="card mb-3" *ngIf="!isLoading" style="width: 100%;">
+        <div class="card mb-3" *ngIf="!isLoading && selected_student" style="width: 100%;">
           <div class="card-header">
             Behavioral Intervention Plan
-            <a
+            <a target="_blank"
               href="https://www.understood.org/en/learning-attention-issues/treatments-approaches/educational-strategies/behavior-intervention-plans-what-you-need-to-know">(B.I.P.)</a>
           </div>
           <div class="card-body" style="font-size: 10px;">
+            <!-- <p style="font-size: 12px;"><strong>Based on the surveys answered, here are some things you may be able to do to help {{selected_student.name}}</strong></p> -->
+
+            <p *ngFor="let suggestion of bip">
+              <strong *ngIf="suggestion.bold == true; else noBold">{{suggestion.text}}</strong>
+              <ng-template #noBold>{{suggestion.text}}</ng-template>
+            </p>
             <p>
               Lorem ipsum dolor amet chicharrones chia mustache pop-up jianbing PBR&B. Venmo YOLO selfies messenger bag
               locavore disrupt banh mi shaman pour-over man braid vape kickstarter. Biodiesel pok pok VHS PBR&B

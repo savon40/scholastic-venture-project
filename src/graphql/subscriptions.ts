@@ -145,6 +145,10 @@ export const onCreateSurveyResponse = `subscription OnCreateSurveyResponse {
       displayString
       responseType
       weight
+      suggestionImprovement
+      suggestionDeterioration
+      suggestionSteadyGood
+      suggestionSteadyBad
       responses {
         nextToken
       }
@@ -179,6 +183,10 @@ export const onUpdateSurveyResponse = `subscription OnUpdateSurveyResponse {
       displayString
       responseType
       weight
+      suggestionImprovement
+      suggestionDeterioration
+      suggestionSteadyGood
+      suggestionSteadyBad
       responses {
         nextToken
       }
@@ -213,6 +221,10 @@ export const onDeleteSurveyResponse = `subscription OnDeleteSurveyResponse {
       displayString
       responseType
       weight
+      suggestionImprovement
+      suggestionDeterioration
+      suggestionSteadyGood
+      suggestionSteadyBad
       responses {
         nextToken
       }
@@ -230,6 +242,10 @@ export const onCreateSurveyQuestion = `subscription OnCreateSurveyQuestion {
     displayString
     responseType
     weight
+    suggestionImprovement
+    suggestionDeterioration
+    suggestionSteadyGood
+    suggestionSteadyBad
     responses {
       items {
         id
@@ -255,6 +271,10 @@ export const onUpdateSurveyQuestion = `subscription OnUpdateSurveyQuestion {
     displayString
     responseType
     weight
+    suggestionImprovement
+    suggestionDeterioration
+    suggestionSteadyGood
+    suggestionSteadyBad
     responses {
       items {
         id
@@ -280,6 +300,10 @@ export const onDeleteSurveyQuestion = `subscription OnDeleteSurveyQuestion {
     displayString
     responseType
     weight
+    suggestionImprovement
+    suggestionDeterioration
+    suggestionSteadyGood
+    suggestionSteadyBad
     responses {
       items {
         id
@@ -308,6 +332,10 @@ export const onCreatePossibleQuestionAnswer = `subscription OnCreatePossibleQues
       displayString
       responseType
       weight
+      suggestionImprovement
+      suggestionDeterioration
+      suggestionSteadyGood
+      suggestionSteadyBad
       responses {
         nextToken
       }
@@ -328,6 +356,10 @@ export const onUpdatePossibleQuestionAnswer = `subscription OnUpdatePossibleQues
       displayString
       responseType
       weight
+      suggestionImprovement
+      suggestionDeterioration
+      suggestionSteadyGood
+      suggestionSteadyBad
       responses {
         nextToken
       }
@@ -348,6 +380,10 @@ export const onDeletePossibleQuestionAnswer = `subscription OnDeletePossibleQues
       displayString
       responseType
       weight
+      suggestionImprovement
+      suggestionDeterioration
+      suggestionSteadyGood
+      suggestionSteadyBad
       responses {
         nextToken
       }

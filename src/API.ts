@@ -7,6 +7,10 @@ export type ModelSurveyQuestionFilterInput = {
   displayString?: ModelStringFilterInput | null,
   responseType?: ModelStringFilterInput | null,
   weight?: ModelIntFilterInput | null,
+  suggestionImprovement?: ModelStringFilterInput | null,
+  suggestionDeterioration?: ModelStringFilterInput | null,
+  suggestionSteadyGood?: ModelStringFilterInput | null,
+  suggestionSteadyBad?: ModelStringFilterInput | null,
   and?: Array< ModelSurveyQuestionFilterInput | null > | null,
   or?: Array< ModelSurveyQuestionFilterInput | null > | null,
   not?: ModelSurveyQuestionFilterInput | null,
@@ -110,6 +114,10 @@ export type CreateSurveyQuestionInput = {
   displayString?: string | null,
   responseType?: string | null,
   weight?: number | null,
+  suggestionImprovement?: string | null,
+  suggestionDeterioration?: string | null,
+  suggestionSteadyGood?: string | null,
+  suggestionSteadyBad?: string | null,
 };
 
 export type UpdateSurveyQuestionInput = {
@@ -118,6 +126,10 @@ export type UpdateSurveyQuestionInput = {
   displayString?: string | null,
   responseType?: string | null,
   weight?: number | null,
+  suggestionImprovement?: string | null,
+  suggestionDeterioration?: string | null,
+  suggestionSteadyGood?: string | null,
+  suggestionSteadyBad?: string | null,
 };
 
 export type DeleteSurveyQuestionInput = {
@@ -445,6 +457,10 @@ export type CreateSurveyResponseMutation = {
       displayString: string | null,
       responseType: string | null,
       weight: number | null,
+      suggestionImprovement: string | null,
+      suggestionDeterioration: string | null,
+      suggestionSteadyGood: string | null,
+      suggestionSteadyBad: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -490,6 +506,10 @@ export type UpdateSurveyResponseMutation = {
       displayString: string | null,
       responseType: string | null,
       weight: number | null,
+      suggestionImprovement: string | null,
+      suggestionDeterioration: string | null,
+      suggestionSteadyGood: string | null,
+      suggestionSteadyBad: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -535,6 +555,10 @@ export type DeleteSurveyResponseMutation = {
       displayString: string | null,
       responseType: string | null,
       weight: number | null,
+      suggestionImprovement: string | null,
+      suggestionDeterioration: string | null,
+      suggestionSteadyGood: string | null,
+      suggestionSteadyBad: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -559,6 +583,10 @@ export type CreateSurveyQuestionMutation = {
     displayString: string | null,
     responseType: string | null,
     weight: number | null,
+    suggestionImprovement: string | null,
+    suggestionDeterioration: string | null,
+    suggestionSteadyGood: string | null,
+    suggestionSteadyBad: string | null,
     responses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
@@ -593,6 +621,10 @@ export type UpdateSurveyQuestionMutation = {
     displayString: string | null,
     responseType: string | null,
     weight: number | null,
+    suggestionImprovement: string | null,
+    suggestionDeterioration: string | null,
+    suggestionSteadyGood: string | null,
+    suggestionSteadyBad: string | null,
     responses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
@@ -627,6 +659,10 @@ export type DeleteSurveyQuestionMutation = {
     displayString: string | null,
     responseType: string | null,
     weight: number | null,
+    suggestionImprovement: string | null,
+    suggestionDeterioration: string | null,
+    suggestionSteadyGood: string | null,
+    suggestionSteadyBad: string | null,
     responses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
@@ -665,6 +701,10 @@ export type CreatePossibleQuestionAnswerMutation = {
       displayString: string | null,
       responseType: string | null,
       weight: number | null,
+      suggestionImprovement: string | null,
+      suggestionDeterioration: string | null,
+      suggestionSteadyGood: string | null,
+      suggestionSteadyBad: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -693,6 +733,10 @@ export type UpdatePossibleQuestionAnswerMutation = {
       displayString: string | null,
       responseType: string | null,
       weight: number | null,
+      suggestionImprovement: string | null,
+      suggestionDeterioration: string | null,
+      suggestionSteadyGood: string | null,
+      suggestionSteadyBad: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -721,6 +765,10 @@ export type DeletePossibleQuestionAnswerMutation = {
       displayString: string | null,
       responseType: string | null,
       weight: number | null,
+      suggestionImprovement: string | null,
+      suggestionDeterioration: string | null,
+      suggestionSteadyGood: string | null,
+      suggestionSteadyBad: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -873,6 +921,10 @@ export type GetSurveyResponseQuery = {
       displayString: string | null,
       responseType: string | null,
       weight: number | null,
+      suggestionImprovement: string | null,
+      suggestionDeterioration: string | null,
+      suggestionSteadyGood: string | null,
+      suggestionSteadyBad: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -913,6 +965,10 @@ export type ListSurveyResponsesQuery = {
         displayString: string | null,
         responseType: string | null,
         weight: number | null,
+        suggestionImprovement: string | null,
+        suggestionDeterioration: string | null,
+        suggestionSteadyGood: string | null,
+        suggestionSteadyBad: string | null,
       } | null,
     } | null > | null,
     nextToken: string | null,
@@ -931,6 +987,10 @@ export type GetSurveyQuestionQuery = {
     displayString: string | null,
     responseType: string | null,
     weight: number | null,
+    suggestionImprovement: string | null,
+    suggestionDeterioration: string | null,
+    suggestionSteadyGood: string | null,
+    suggestionSteadyBad: string | null,
     responses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
@@ -969,6 +1029,10 @@ export type ListSurveyQuestionsQuery = {
       displayString: string | null,
       responseType: string | null,
       weight: number | null,
+      suggestionImprovement: string | null,
+      suggestionDeterioration: string | null,
+      suggestionSteadyGood: string | null,
+      suggestionSteadyBad: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -998,6 +1062,10 @@ export type GetPossibleQuestionAnswerQuery = {
       displayString: string | null,
       responseType: string | null,
       weight: number | null,
+      suggestionImprovement: string | null,
+      suggestionDeterioration: string | null,
+      suggestionSteadyGood: string | null,
+      suggestionSteadyBad: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -1030,6 +1098,10 @@ export type ListPossibleQuestionAnswersQuery = {
         displayString: string | null,
         responseType: string | null,
         weight: number | null,
+        suggestionImprovement: string | null,
+        suggestionDeterioration: string | null,
+        suggestionSteadyGood: string | null,
+        suggestionSteadyBad: string | null,
       } | null,
     } | null > | null,
     nextToken: string | null,
@@ -1209,6 +1281,10 @@ export type OnCreateSurveyResponseSubscription = {
       displayString: string | null,
       responseType: string | null,
       weight: number | null,
+      suggestionImprovement: string | null,
+      suggestionDeterioration: string | null,
+      suggestionSteadyGood: string | null,
+      suggestionSteadyBad: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -1250,6 +1326,10 @@ export type OnUpdateSurveyResponseSubscription = {
       displayString: string | null,
       responseType: string | null,
       weight: number | null,
+      suggestionImprovement: string | null,
+      suggestionDeterioration: string | null,
+      suggestionSteadyGood: string | null,
+      suggestionSteadyBad: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -1291,6 +1371,10 @@ export type OnDeleteSurveyResponseSubscription = {
       displayString: string | null,
       responseType: string | null,
       weight: number | null,
+      suggestionImprovement: string | null,
+      suggestionDeterioration: string | null,
+      suggestionSteadyGood: string | null,
+      suggestionSteadyBad: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -1311,6 +1395,10 @@ export type OnCreateSurveyQuestionSubscription = {
     displayString: string | null,
     responseType: string | null,
     weight: number | null,
+    suggestionImprovement: string | null,
+    suggestionDeterioration: string | null,
+    suggestionSteadyGood: string | null,
+    suggestionSteadyBad: string | null,
     responses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
@@ -1341,6 +1429,10 @@ export type OnUpdateSurveyQuestionSubscription = {
     displayString: string | null,
     responseType: string | null,
     weight: number | null,
+    suggestionImprovement: string | null,
+    suggestionDeterioration: string | null,
+    suggestionSteadyGood: string | null,
+    suggestionSteadyBad: string | null,
     responses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
@@ -1371,6 +1463,10 @@ export type OnDeleteSurveyQuestionSubscription = {
     displayString: string | null,
     responseType: string | null,
     weight: number | null,
+    suggestionImprovement: string | null,
+    suggestionDeterioration: string | null,
+    suggestionSteadyGood: string | null,
+    suggestionSteadyBad: string | null,
     responses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
@@ -1405,6 +1501,10 @@ export type OnCreatePossibleQuestionAnswerSubscription = {
       displayString: string | null,
       responseType: string | null,
       weight: number | null,
+      suggestionImprovement: string | null,
+      suggestionDeterioration: string | null,
+      suggestionSteadyGood: string | null,
+      suggestionSteadyBad: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -1429,6 +1529,10 @@ export type OnUpdatePossibleQuestionAnswerSubscription = {
       displayString: string | null,
       responseType: string | null,
       weight: number | null,
+      suggestionImprovement: string | null,
+      suggestionDeterioration: string | null,
+      suggestionSteadyGood: string | null,
+      suggestionSteadyBad: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -1453,6 +1557,10 @@ export type OnDeletePossibleQuestionAnswerSubscription = {
       displayString: string | null,
       responseType: string | null,
       weight: number | null,
+      suggestionImprovement: string | null,
+      suggestionDeterioration: string | null,
+      suggestionSteadyGood: string | null,
+      suggestionSteadyBad: string | null,
       responses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,

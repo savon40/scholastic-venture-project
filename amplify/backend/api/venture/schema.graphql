@@ -24,6 +24,10 @@ type SurveyQuestion @model {
   displayString: String
   responseType: String
   weight: Int
+  suggestionImprovement: String
+  suggestionDeterioration: String
+  suggestionSteadyGood: String
+  suggestionSteadyBad: String
   responses: [SurveyResponse] @connection(name: "QuestionResponses")
   possibleAnswers: [PossibleQuestionAnswer] @connection(name: "PossibleAnswers")
 }

@@ -145,6 +145,10 @@ export const createSurveyResponse = `mutation CreateSurveyResponse($input: Creat
       displayString
       responseType
       weight
+      suggestionImprovement
+      suggestionDeterioration
+      suggestionSteadyGood
+      suggestionSteadyBad
       responses {
         nextToken
       }
@@ -179,6 +183,10 @@ export const updateSurveyResponse = `mutation UpdateSurveyResponse($input: Updat
       displayString
       responseType
       weight
+      suggestionImprovement
+      suggestionDeterioration
+      suggestionSteadyGood
+      suggestionSteadyBad
       responses {
         nextToken
       }
@@ -213,6 +221,10 @@ export const deleteSurveyResponse = `mutation DeleteSurveyResponse($input: Delet
       displayString
       responseType
       weight
+      suggestionImprovement
+      suggestionDeterioration
+      suggestionSteadyGood
+      suggestionSteadyBad
       responses {
         nextToken
       }
@@ -230,6 +242,10 @@ export const createSurveyQuestion = `mutation CreateSurveyQuestion($input: Creat
     displayString
     responseType
     weight
+    suggestionImprovement
+    suggestionDeterioration
+    suggestionSteadyGood
+    suggestionSteadyBad
     responses {
       items {
         id
@@ -255,6 +271,10 @@ export const updateSurveyQuestion = `mutation UpdateSurveyQuestion($input: Updat
     displayString
     responseType
     weight
+    suggestionImprovement
+    suggestionDeterioration
+    suggestionSteadyGood
+    suggestionSteadyBad
     responses {
       items {
         id
@@ -280,6 +300,10 @@ export const deleteSurveyQuestion = `mutation DeleteSurveyQuestion($input: Delet
     displayString
     responseType
     weight
+    suggestionImprovement
+    suggestionDeterioration
+    suggestionSteadyGood
+    suggestionSteadyBad
     responses {
       items {
         id
@@ -310,6 +334,10 @@ export const createPossibleQuestionAnswer = `mutation CreatePossibleQuestionAnsw
       displayString
       responseType
       weight
+      suggestionImprovement
+      suggestionDeterioration
+      suggestionSteadyGood
+      suggestionSteadyBad
       responses {
         nextToken
       }
@@ -332,6 +360,10 @@ export const updatePossibleQuestionAnswer = `mutation UpdatePossibleQuestionAnsw
       displayString
       responseType
       weight
+      suggestionImprovement
+      suggestionDeterioration
+      suggestionSteadyGood
+      suggestionSteadyBad
       responses {
         nextToken
       }
@@ -354,6 +386,10 @@ export const deletePossibleQuestionAnswer = `mutation DeletePossibleQuestionAnsw
       displayString
       responseType
       weight
+      suggestionImprovement
+      suggestionDeterioration
+      suggestionSteadyGood
+      suggestionSteadyBad
       responses {
         nextToken
       }
