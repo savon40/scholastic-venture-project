@@ -97,37 +97,10 @@
               href="https://www.understood.org/en/learning-attention-issues/treatments-approaches/educational-strategies/behavior-intervention-plans-what-you-need-to-know">(B.I.P.)</a>
           </div>
           <div class="card-body" style="font-size: 10px;">
-            <!-- <p style="font-size: 12px;"><strong>Based on the surveys answered, here are some things you may be able to do to help {{selected_student.name}}</strong></p> -->
-
             <p *ngFor="let suggestion of bip">
               <strong *ngIf="suggestion.bold == true; else noBold">{{suggestion.text}}</strong>
               <ng-template #noBold>{{suggestion.text}}</ng-template>
             </p>
-            <p>
-              Lorem ipsum dolor amet chicharrones chia mustache pop-up jianbing PBR&B. Venmo YOLO selfies messenger bag
-              locavore disrupt banh mi shaman pour-over man braid vape kickstarter. Biodiesel pok pok VHS PBR&B
-              adaptogen, put a bird on it slow-carb bespoke. Woke ugh pour-over salvia pitchfork +1 health goth cardigan
-              iPhone letterpress XOXO. Fanny pack vaporware chicharrones aesthetic, master cleanse pug helvetica pickled
-              gastropub hell of quinoa occupy mustache. Banh mi brunch letterpress quinoa next level adaptogen messenger
-              bag hella activated charcoal. Wayfarers sriracha schlitz, marfa swag hexagon af hell of meh PBR&B deep v.
-            </p>
-            <p>
-              Lorem ipsum dolor amet chicharrones chia mustache pop-up jianbing PBR&B. Venmo YOLO selfies messenger bag
-              locavore disrupt banh mi shaman pour-over man braid vape kickstarter. Biodiesel pok pok VHS PBR&B
-              adaptogen, put a bird on it slow-carb bespoke. Woke ugh pour-over salvia pitchfork +1 health goth cardigan
-              iPhone letterpress XOXO. Fanny pack vaporware chicharrones aesthetic, master cleanse pug helvetica pickled
-              gastropub hell of quinoa occupy mustache. Banh mi brunch letterpress quinoa next level adaptogen messenger
-              bag hella activated charcoal. Wayfarers sriracha schlitz, marfa swag hexagon af hell of meh PBR&B deep v.
-            </p>
-            <p>
-              Lorem ipsum dolor amet chicharrones chia mustache pop-up jianbing PBR&B. Venmo YOLO selfies messenger bag
-              locavore disrupt banh mi shaman pour-over man braid vape kickstarter. Biodiesel pok pok VHS PBR&B
-              adaptogen, put a bird on it slow-carb bespoke. Woke ugh pour-over salvia pitchfork +1 health goth cardigan
-              iPhone letterpress XOXO. Fanny pack vaporware chicharrones aesthetic, master cleanse pug helvetica pickled
-              gastropub hell of quinoa occupy mustache. Banh mi brunch letterpress quinoa next level adaptogen messenger
-              bag hella activated charcoal. Wayfarers sriracha schlitz, marfa swag hexagon af hell of meh PBR&B deep v.
-            </p>
-
           </div>
           <div class="card-footer">
             <p class="font-italic" style="font-size: 10px; color: #dc3545; margin-bottom: 0px;">
@@ -142,7 +115,7 @@
         <!-- Line Chart -->
         <div class="card mb-3" *ngIf="!isLoading">
           <div class="card-header">
-            Mental Health Issue Indicator Over Time
+            Behavioral Issue Indicator Over Time
             <span class="header-small">
               All questions available and answered are weighted on a 1-5 scale based on severity. The higher the number,
               the more likely this question is an indicator of mental health issues.

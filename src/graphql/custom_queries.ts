@@ -42,6 +42,10 @@ export const getStudentAndSurveys = `query GetStudentAndSurveys($id: ID!) {
               question
               displayString
               weight
+              suggestionSteadyBad
+              suggestionSteadyGood
+              suggestionImprovement
+              suggestionDeterioration
             }
           }
         }

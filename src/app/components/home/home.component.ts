@@ -220,11 +220,51 @@ export class HomeComponent implements OnInit, AfterViewInit {
         console.log(key, value['weight']);
 
         //BIP Information and Trends
+        let trend = '';
+        let answers = this.questionIdToAnswerList.get(value['id']);
+        if (answers.length > 0) {
+          if (answers[0] == 'false' && answers[answers.length - 1] == 'false') {
+            trend = 'steadily_good';
+            if (value['suggestionSteadyGood']) {
+              this.bip.push({
+                bold: false,
+                text: value['suggestionSteadyGood'].replace(/studentname/g, this.selected_student.name)
+              })
+            }
+          }
+          else if (answers[0] == 'false' && answers[answers.length - 1] == 'true') {
+            trend = 'deterioration';
+            if (value['suggestionDeterioration']) {
+              this.bip.push({
+                bold: false,
+                text: value['suggestionDeterioration'].replace(/studentname/g, this.selected_student.name)
+              })
+            }
+          }
+          else if (answers[0] == 'true' && answers[answers.length - 1] == 'false') {
+            trend = 'improvement';
+            if (value['suggestionImprovement']) {
+              this.bip.push({
+                bold: false,
+                text: value['suggestionImprovement'].replace(/studentname/g, this.selected_student.name)
+              })
+            }
+          }
+          else if (answers[0] == 'true' && answers[answers.length - 1] == 'true') {
+            trend = 'steadily_bad';
+            if (value['suggestionSteadyBad']) {
+              this.bip.push({
+                bold: false,
+                text: value['suggestionSteadyBad'].replace(/studentname/g, this.selected_student.name)
+              })
+            }
+          }
+        }
 
         //display questions
         if (value['weight'] >= 3) {
           this.display_questions.push(
-            new QuestionDisplay(value, this.questionIdToAnswerList.get(value['id']))
+            new QuestionDisplay(value, trend)
           );
         }
 
