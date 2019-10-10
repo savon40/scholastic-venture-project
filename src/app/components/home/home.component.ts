@@ -123,6 +123,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     //clear lists before beginning
     this.surveys_taken.length = 0;
     this.display_questions.length = 0;
+    this.bip.length = 0;
     this.questionIdToAnswerList = new Map();
     this.questionIdToQuestion = new Map();
     this.lineChartLabels = [];
@@ -203,14 +204,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
       else if (this.surveys_taken.length <= 4) {
         this.bip.push({
           bold: true,
-          text: 'You have only filled out ' + this.surveys_taken.length + ' survey(s) for' + this.selected_student.name +
+          text: 'You have only filled out ' + this.surveys_taken.length + ' survey(s) for ' + this.selected_student.name +
             '. This may not be enough for us to create an accurate plan yet, but we will do our best.'
         })
       }
       else {
         this.bip.push({
           bold: true,
-          text: 'You have filled out ' + this.surveys_taken.length + ' survey(s) for' + this.selected_student.name +
+          text: 'You have filled out ' + this.surveys_taken.length + ' survey(s) for ' + this.selected_student.name +
             '. This should be enough for us to get started, but we encourage you to keep filling out surveys to help us improve our plan.'
         })
       }
