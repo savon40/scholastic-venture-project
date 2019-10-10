@@ -10,6 +10,7 @@ import { histories } from '../default_text';
 import { Survey } from '../survey/survey.model';
 import { Color } from 'ng2-charts';
 import { QuestionDisplay } from '../survey/question_display.model';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 // using chart:
 // https://alligator.io/angular/chartjs-ng2-charts/
@@ -23,6 +24,9 @@ import { QuestionDisplay } from '../survey/question_display.model';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
+
+  faAngleDown = faAngleDown;
+  faAngleUp = faAngleUp;
 
   isLoading = false;
   selected_student: any;
@@ -190,7 +194,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
         //create survey records
         this.surveys_taken.push(
-          new Survey(new Date(survey['createdAt']).toLocaleString(), survey['numTrue'], survey['numFalse'], average)
+          new Survey(survey['id'], new Date(survey['createdAt']).toLocaleString(), survey['numTrue'], survey['numFalse'], average, survey['surveyResponses']['items'])
         );
       }
 
@@ -296,6 +300,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.getStudentSurveyInfo(this.selected_student.id);
       }
     });
+  }
+
+  expandRow(survey_id: string) {
+    console.log('button clicked', survey_id);
+    console.log(document.getElementById(survey_id));
+    var row = document.getElementById(survey_id);
+    if (row) {
+      row.classList.toggle('expandable');
+    }
+    // document.getElementById(survey_id).toggleClass("expandable");
   }
 
 }

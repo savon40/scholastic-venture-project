@@ -160,13 +160,37 @@
                   </tr>
                 </tfoot>
                 <tbody>
-                  <tr *ngFor="let survey of surveys_taken">
-                    <td>{{survey['date_taken']}}</td>
-                    <td>{{survey['num_answered']}}</td>
-                    <td>{{survey['num_true']}}</td>
-                    <td>{{survey['num_false']}}</td>
-                    <td>{{survey['health_score']}}</td>
-                  </tr>
+                  <ng-container *ngFor="let survey of surveys_taken">
+                    <tr>
+                      <td>{{survey['date_taken']}}</td>
+                      <td>{{survey['num_answered']}}</td>
+                      <td>{{survey['num_true']}}</td>
+                      <td>{{survey['num_false']}}</td>
+                      <td>
+                        {{survey['health_score']}}
+                        <span style="float: right; cursor: pointer;" (click)="expandRow(survey['survey_id'])">
+
+                          <fa-icon [icon]="faAngleDown"></fa-icon>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr class="expandable" id="{{survey['survey_id']}}">
+                      <td colspan="5">
+                        <table style="float: right;">
+                          <tr>
+                            <th>Questions Answered</th>
+                            <th>Answers</th>
+                          </tr>
+                          <tbody>
+                            <tr *ngFor="let response of survey['responses']">
+                              <td>{{response['question']['question']}}</td>
+                              <td>{{response['response']}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </ng-container>
                 </tbody>
               </table>
             </div>
@@ -181,3 +205,4 @@
     <!-- /.content-wrapper -->
 
   </div>
+  <!-- wrapper -->

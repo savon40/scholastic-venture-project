@@ -12,6 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AuthService } from './components/auth/auth.service';
 import { SurveyComponent } from './components/survey/survey.component';
 import { StudentService } from './components/student.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { StudentService } from './components/student.service';
     AmplifyAngularModule,
     FormsModule,
     ReactiveFormsModule,
-    ChartsModule
+    ChartsModule,
+    FontAwesomeModule
   ],
   providers: [AmplifyService, AuthService, StudentService],
   bootstrap: [AppComponent]
