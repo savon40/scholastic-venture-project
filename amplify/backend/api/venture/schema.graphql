@@ -1,6 +1,7 @@
 type Student @model {
   id: ID!
   name: String!
+  firstName: String
   surveys: [Survey] @connection(name: "StudentSurveys")
 }
 type Survey @model {

@@ -57,11 +57,13 @@ export type ModelIntFilterInput = {
 export type CreateStudentInput = {
   id?: string | null,
   name: string,
+  firstName?: string | null,
 };
 
 export type UpdateStudentInput = {
   id: string,
   name?: string | null,
+  firstName?: string | null,
 };
 
 export type DeleteStudentInput = {
@@ -155,6 +157,7 @@ export type DeletePossibleQuestionAnswerInput = {
 export type ModelStudentFilterInput = {
   id?: ModelIDFilterInput | null,
   name?: ModelStringFilterInput | null,
+  firstName?: ModelStringFilterInput | null,
   and?: Array< ModelStudentFilterInput | null > | null,
   or?: Array< ModelStudentFilterInput | null > | null,
   not?: ModelStudentFilterInput | null,
@@ -247,6 +250,10 @@ export type GetStudentAndSurveysQuery = {
               question: string,
               displayString: string | null,
               weight: number | null,
+              suggestionSteadyBad: string | null,
+              suggestionSteadyGood: string | null,
+              suggestionImprovement: string | null,
+              suggestionDeterioration: string | null,
             } | null,
           } | null > | null,
         } | null,
@@ -265,6 +272,7 @@ export type CreateStudentMutation = {
     __typename: "Student",
     id: string,
     name: string,
+    firstName: string | null,
     surveys:  {
       __typename: "ModelSurveyConnection",
       items:  Array< {
@@ -288,6 +296,7 @@ export type UpdateStudentMutation = {
     __typename: "Student",
     id: string,
     name: string,
+    firstName: string | null,
     surveys:  {
       __typename: "ModelSurveyConnection",
       items:  Array< {
@@ -311,6 +320,7 @@ export type DeleteStudentMutation = {
     __typename: "Student",
     id: string,
     name: string,
+    firstName: string | null,
     surveys:  {
       __typename: "ModelSurveyConnection",
       items:  Array< {
@@ -337,6 +347,7 @@ export type CreateSurveyMutation = {
       __typename: "Student",
       id: string,
       name: string,
+      firstName: string | null,
       surveys:  {
         __typename: "ModelSurveyConnection",
         nextToken: string | null,
@@ -370,6 +381,7 @@ export type UpdateSurveyMutation = {
       __typename: "Student",
       id: string,
       name: string,
+      firstName: string | null,
       surveys:  {
         __typename: "ModelSurveyConnection",
         nextToken: string | null,
@@ -403,6 +415,7 @@ export type DeleteSurveyMutation = {
       __typename: "Student",
       id: string,
       name: string,
+      firstName: string | null,
       surveys:  {
         __typename: "ModelSurveyConnection",
         nextToken: string | null,
@@ -441,6 +454,7 @@ export type CreateSurveyResponseMutation = {
         __typename: "Student",
         id: string,
         name: string,
+        firstName: string | null,
       } | null,
       createdAt: string | null,
       numTrue: number | null,
@@ -490,6 +504,7 @@ export type UpdateSurveyResponseMutation = {
         __typename: "Student",
         id: string,
         name: string,
+        firstName: string | null,
       } | null,
       createdAt: string | null,
       numTrue: number | null,
@@ -539,6 +554,7 @@ export type DeleteSurveyResponseMutation = {
         __typename: "Student",
         id: string,
         name: string,
+        firstName: string | null,
       } | null,
       createdAt: string | null,
       numTrue: number | null,
@@ -790,6 +806,7 @@ export type GetStudentQuery = {
     __typename: "Student",
     id: string,
     name: string,
+    firstName: string | null,
     surveys:  {
       __typename: "ModelSurveyConnection",
       items:  Array< {
@@ -817,6 +834,7 @@ export type ListStudentsQuery = {
       __typename: "Student",
       id: string,
       name: string,
+      firstName: string | null,
       surveys:  {
         __typename: "ModelSurveyConnection",
         nextToken: string | null,
@@ -838,6 +856,7 @@ export type GetSurveyQuery = {
       __typename: "Student",
       id: string,
       name: string,
+      firstName: string | null,
       surveys:  {
         __typename: "ModelSurveyConnection",
         nextToken: string | null,
@@ -875,6 +894,7 @@ export type ListSurveysQuery = {
         __typename: "Student",
         id: string,
         name: string,
+        firstName: string | null,
       } | null,
       createdAt: string | null,
       numTrue: number | null,
@@ -905,6 +925,7 @@ export type GetSurveyResponseQuery = {
         __typename: "Student",
         id: string,
         name: string,
+        firstName: string | null,
       } | null,
       createdAt: string | null,
       numTrue: number | null,
@@ -1113,6 +1134,7 @@ export type OnCreateStudentSubscription = {
     __typename: "Student",
     id: string,
     name: string,
+    firstName: string | null,
     surveys:  {
       __typename: "ModelSurveyConnection",
       items:  Array< {
@@ -1132,6 +1154,7 @@ export type OnUpdateStudentSubscription = {
     __typename: "Student",
     id: string,
     name: string,
+    firstName: string | null,
     surveys:  {
       __typename: "ModelSurveyConnection",
       items:  Array< {
@@ -1151,6 +1174,7 @@ export type OnDeleteStudentSubscription = {
     __typename: "Student",
     id: string,
     name: string,
+    firstName: string | null,
     surveys:  {
       __typename: "ModelSurveyConnection",
       items:  Array< {
@@ -1173,6 +1197,7 @@ export type OnCreateSurveySubscription = {
       __typename: "Student",
       id: string,
       name: string,
+      firstName: string | null,
       surveys:  {
         __typename: "ModelSurveyConnection",
         nextToken: string | null,
@@ -1202,6 +1227,7 @@ export type OnUpdateSurveySubscription = {
       __typename: "Student",
       id: string,
       name: string,
+      firstName: string | null,
       surveys:  {
         __typename: "ModelSurveyConnection",
         nextToken: string | null,
@@ -1231,6 +1257,7 @@ export type OnDeleteSurveySubscription = {
       __typename: "Student",
       id: string,
       name: string,
+      firstName: string | null,
       surveys:  {
         __typename: "ModelSurveyConnection",
         nextToken: string | null,
@@ -1265,6 +1292,7 @@ export type OnCreateSurveyResponseSubscription = {
         __typename: "Student",
         id: string,
         name: string,
+        firstName: string | null,
       } | null,
       createdAt: string | null,
       numTrue: number | null,
@@ -1310,6 +1338,7 @@ export type OnUpdateSurveyResponseSubscription = {
         __typename: "Student",
         id: string,
         name: string,
+        firstName: string | null,
       } | null,
       createdAt: string | null,
       numTrue: number | null,
@@ -1355,6 +1384,7 @@ export type OnDeleteSurveyResponseSubscription = {
         __typename: "Student",
         id: string,
         name: string,
+        firstName: string | null,
       } | null,
       createdAt: string | null,
       numTrue: number | null,
