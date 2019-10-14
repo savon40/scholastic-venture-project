@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   faAngleDown = faAngleDown;
   faAngleUp = faAngleUp;
+  icon_shown = faAngleDown;
 
   isLoading = false;
   selected_student: any;
@@ -308,6 +309,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
     var row = document.getElementById(survey_id);
     if (row) {
       row.classList.toggle('expandable');
+    }
+
+    if (this.icon_shown == faAngleUp) {
+      this.icon_shown = faAngleDown;
+    }
+    else {
+      this.icon_shown = faAngleUp;
     }
     // document.getElementById(survey_id).toggleClass("expandable");
   }
