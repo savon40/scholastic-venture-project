@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-// import Auth from '@aws-amplify/auth';
-// import { Subject, Observable } from 'rxjs';
-// import { CognitoUser } from 'amazon-cognito-identity-js';
-// import { CookieService } from 'ngx-cookie';
 
 export interface SurveyResponse {
   question: string,

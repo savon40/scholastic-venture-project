@@ -234,7 +234,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
             if (value['suggestionSteadyGood']) {
               this.bip.push({
                 bold: false,
-                text: value['suggestionSteadyGood'].replace(/studentname/g, this.selected_student.name)
+                text: value['suggestionSteadyGood'].replace(/studentname/g, this.selected_student.firstName)
               })
             }
           }
@@ -243,7 +243,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
             if (value['suggestionDeterioration']) {
               this.bip.push({
                 bold: false,
-                text: value['suggestionDeterioration'].replace(/studentname/g, this.selected_student.name)
+                text: value['suggestionDeterioration'].replace(/studentname/g, this.selected_student.firstName)
               })
             }
           }
@@ -252,7 +252,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
             if (value['suggestionImprovement']) {
               this.bip.push({
                 bold: false,
-                text: value['suggestionImprovement'].replace(/studentname/g, this.selected_student.name)
+                text: value['suggestionImprovement'].replace(/studentname/g, this.selected_student.firstName)
               })
             }
           }
@@ -261,7 +261,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
             if (value['suggestionSteadyBad']) {
               this.bip.push({
                 bold: false,
-                text: value['suggestionSteadyBad'].replace(/studentname/g, this.selected_student.name)
+                text: value['suggestionSteadyBad'].replace(/studentname/g, this.selected_student.firstName)
               })
             }
           }

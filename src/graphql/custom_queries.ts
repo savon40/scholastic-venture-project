@@ -27,6 +27,7 @@ export const getStudentAndSurveys = `query GetStudentAndSurveys($id: ID!) {
   getStudent(id: $id) {
     id
     name
+    firstName
     surveys {
       items {
         id
