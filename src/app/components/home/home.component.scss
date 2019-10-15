@@ -10923,3 +10923,40 @@ body.sidebar-toggled footer.sticky-footer {
     width: calc(100% - 90px);
   }
 }
+
+
+// SIDEBAR COLLAPSE AND SUCH
+@media (min-width:993px) {
+	.w3-sidebar.w3-collapse {
+		display: block!important
+  }
+  .w3-hide-large {
+		display: none!important
+	}
+}
+
+@media (max-width:992px) {
+	.w3-sidebar.w3-collapse {
+		display: none
+	}
+}
+
+.w3-animate-left {
+	position: relative;
+	animation: animateleft 0.4s
+}
+
+.w3-teal,
+.w3-hover-teal:hover {
+	color: #fff!important;
+	background-color: #009688!important
+}
+
+.w3-xlarge {
+	font-size: 24px!important
+}
+
+.sidebar-open-button {
+  background-color: #212529;
+  color: rgba(255, 255, 255, 0.5);
+}

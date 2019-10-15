@@ -320,4 +320,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
     // document.getElementById(survey_id).toggleClass("expandable");
   }
 
+  openSidebar() {
+    document.getElementById('mySidebar').style.display = "block";
+  }
+  closeSidebar() {
+    document.getElementById('mySidebar').style.display = "none";
+  }
+
 }
