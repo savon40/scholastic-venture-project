@@ -10721,7 +10721,12 @@ body {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.sidebar .nav-item .nav-link:active, .sidebar .nav-item .nav-link:focus, .sidebar .nav-item .nav-link:hover {
+.sidebar-open-button {
+  background-color: #212529;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sidebar .nav-item .nav-link:active, .sidebar .nav-item .nav-link:focus, .sidebar .nav-item .nav-link:hover, .sidebar-open-button:hover {
   color: rgba(255, 255, 255, 0.75);
 }
 
@@ -10954,9 +10959,4 @@ body.sidebar-toggled footer.sticky-footer {
 
 .w3-xlarge {
 	font-size: 24px!important
-}
-
-.sidebar-open-button {
-  background-color: #212529;
-  color: rgba(255, 255, 255, 0.5);
 }

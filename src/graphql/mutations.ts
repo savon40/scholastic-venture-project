@@ -12,6 +12,7 @@ export const createStudent = `mutation CreateStudent($input: CreateStudentInput!
         createdAt
         numTrue
         numFalse
+        gpaAtTime
       }
       nextToken
     }
@@ -29,6 +30,7 @@ export const updateStudent = `mutation UpdateStudent($input: UpdateStudentInput!
         createdAt
         numTrue
         numFalse
+        gpaAtTime
       }
       nextToken
     }
@@ -46,6 +48,7 @@ export const deleteStudent = `mutation DeleteStudent($input: DeleteStudentInput!
         createdAt
         numTrue
         numFalse
+        gpaAtTime
       }
       nextToken
     }
@@ -66,6 +69,7 @@ export const createSurvey = `mutation CreateSurvey($input: CreateSurveyInput!) {
     createdAt
     numTrue
     numFalse
+    gpaAtTime
     surveyResponses {
       items {
         id
@@ -91,6 +95,7 @@ export const updateSurvey = `mutation UpdateSurvey($input: UpdateSurveyInput!) {
     createdAt
     numTrue
     numFalse
+    gpaAtTime
     surveyResponses {
       items {
         id
@@ -116,6 +121,7 @@ export const deleteSurvey = `mutation DeleteSurvey($input: DeleteSurveyInput!) {
     createdAt
     numTrue
     numFalse
+    gpaAtTime
     surveyResponses {
       items {
         id
@@ -142,6 +148,7 @@ export const createSurveyResponse = `mutation CreateSurveyResponse($input: Creat
       createdAt
       numTrue
       numFalse
+      gpaAtTime
       surveyResponses {
         nextToken
       }
@@ -181,6 +188,7 @@ export const updateSurveyResponse = `mutation UpdateSurveyResponse($input: Updat
       createdAt
       numTrue
       numFalse
+      gpaAtTime
       surveyResponses {
         nextToken
       }
@@ -220,6 +228,7 @@ export const deleteSurveyResponse = `mutation DeleteSurveyResponse($input: Delet
       createdAt
       numTrue
       numFalse
+      gpaAtTime
       surveyResponses {
         nextToken
       }

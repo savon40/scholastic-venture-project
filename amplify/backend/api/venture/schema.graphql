@@ -10,6 +10,7 @@ type Survey @model {
   createdAt: String
   numTrue: Int
   numFalse: Int
+  gpaAtTime: Float
   surveyResponses: [SurveyResponse] @connection(name: "SurveyResponses")
 }
 type SurveyResponse @model {

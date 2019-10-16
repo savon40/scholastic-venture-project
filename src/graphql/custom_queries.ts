@@ -34,6 +34,7 @@ export const getStudentAndSurveys = `query GetStudentAndSurveys($id: ID!) {
         createdAt
         numTrue
         numFalse
+        gpaAtTime
         surveyResponses {
           items {
             id

@@ -75,6 +75,7 @@ export type CreateSurveyInput = {
   createdAt?: string | null,
   numTrue?: number | null,
   numFalse?: number | null,
+  gpaAtTime?: number | null,
   surveyStudentId?: string | null,
 };
 
@@ -83,6 +84,7 @@ export type UpdateSurveyInput = {
   createdAt?: string | null,
   numTrue?: number | null,
   numFalse?: number | null,
+  gpaAtTime?: number | null,
   surveyStudentId?: string | null,
 };
 
@@ -168,9 +170,22 @@ export type ModelSurveyFilterInput = {
   createdAt?: ModelStringFilterInput | null,
   numTrue?: ModelIntFilterInput | null,
   numFalse?: ModelIntFilterInput | null,
+  gpaAtTime?: ModelFloatFilterInput | null,
   and?: Array< ModelSurveyFilterInput | null > | null,
   or?: Array< ModelSurveyFilterInput | null > | null,
   not?: ModelSurveyFilterInput | null,
+};
+
+export type ModelFloatFilterInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  contains?: number | null,
+  notContains?: number | null,
+  between?: Array< number | null > | null,
 };
 
 export type ModelSurveyResponseFilterInput = {
@@ -230,6 +245,7 @@ export type GetStudentAndSurveysQuery = {
     __typename: "Student",
     id: string,
     name: string,
+    firstName: string | null,
     surveys:  {
       __typename: "ModelSurveyConnection",
       items:  Array< {
@@ -281,6 +297,7 @@ export type CreateStudentMutation = {
         createdAt: string | null,
         numTrue: number | null,
         numFalse: number | null,
+        gpaAtTime: number | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -305,6 +322,7 @@ export type UpdateStudentMutation = {
         createdAt: string | null,
         numTrue: number | null,
         numFalse: number | null,
+        gpaAtTime: number | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -329,6 +347,7 @@ export type DeleteStudentMutation = {
         createdAt: string | null,
         numTrue: number | null,
         numFalse: number | null,
+        gpaAtTime: number | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -356,6 +375,7 @@ export type CreateSurveyMutation = {
     createdAt: string | null,
     numTrue: number | null,
     numFalse: number | null,
+    gpaAtTime: number | null,
     surveyResponses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
@@ -390,6 +410,7 @@ export type UpdateSurveyMutation = {
     createdAt: string | null,
     numTrue: number | null,
     numFalse: number | null,
+    gpaAtTime: number | null,
     surveyResponses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
@@ -424,6 +445,7 @@ export type DeleteSurveyMutation = {
     createdAt: string | null,
     numTrue: number | null,
     numFalse: number | null,
+    gpaAtTime: number | null,
     surveyResponses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
@@ -459,6 +481,7 @@ export type CreateSurveyResponseMutation = {
       createdAt: string | null,
       numTrue: number | null,
       numFalse: number | null,
+      gpaAtTime: number | null,
       surveyResponses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -509,6 +532,7 @@ export type UpdateSurveyResponseMutation = {
       createdAt: string | null,
       numTrue: number | null,
       numFalse: number | null,
+      gpaAtTime: number | null,
       surveyResponses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -559,6 +583,7 @@ export type DeleteSurveyResponseMutation = {
       createdAt: string | null,
       numTrue: number | null,
       numFalse: number | null,
+      gpaAtTime: number | null,
       surveyResponses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -815,6 +840,7 @@ export type GetStudentQuery = {
         createdAt: string | null,
         numTrue: number | null,
         numFalse: number | null,
+        gpaAtTime: number | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -865,6 +891,7 @@ export type GetSurveyQuery = {
     createdAt: string | null,
     numTrue: number | null,
     numFalse: number | null,
+    gpaAtTime: number | null,
     surveyResponses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
@@ -899,6 +926,7 @@ export type ListSurveysQuery = {
       createdAt: string | null,
       numTrue: number | null,
       numFalse: number | null,
+      gpaAtTime: number | null,
       surveyResponses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -930,6 +958,7 @@ export type GetSurveyResponseQuery = {
       createdAt: string | null,
       numTrue: number | null,
       numFalse: number | null,
+      gpaAtTime: number | null,
       surveyResponses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -978,6 +1007,7 @@ export type ListSurveyResponsesQuery = {
         createdAt: string | null,
         numTrue: number | null,
         numFalse: number | null,
+        gpaAtTime: number | null,
       } | null,
       question:  {
         __typename: "SurveyQuestion",
@@ -1143,6 +1173,7 @@ export type OnCreateStudentSubscription = {
         createdAt: string | null,
         numTrue: number | null,
         numFalse: number | null,
+        gpaAtTime: number | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -1163,6 +1194,7 @@ export type OnUpdateStudentSubscription = {
         createdAt: string | null,
         numTrue: number | null,
         numFalse: number | null,
+        gpaAtTime: number | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -1183,6 +1215,7 @@ export type OnDeleteStudentSubscription = {
         createdAt: string | null,
         numTrue: number | null,
         numFalse: number | null,
+        gpaAtTime: number | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -1206,6 +1239,7 @@ export type OnCreateSurveySubscription = {
     createdAt: string | null,
     numTrue: number | null,
     numFalse: number | null,
+    gpaAtTime: number | null,
     surveyResponses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
@@ -1236,6 +1270,7 @@ export type OnUpdateSurveySubscription = {
     createdAt: string | null,
     numTrue: number | null,
     numFalse: number | null,
+    gpaAtTime: number | null,
     surveyResponses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
@@ -1266,6 +1301,7 @@ export type OnDeleteSurveySubscription = {
     createdAt: string | null,
     numTrue: number | null,
     numFalse: number | null,
+    gpaAtTime: number | null,
     surveyResponses:  {
       __typename: "ModelSurveyResponseConnection",
       items:  Array< {
@@ -1297,6 +1333,7 @@ export type OnCreateSurveyResponseSubscription = {
       createdAt: string | null,
       numTrue: number | null,
       numFalse: number | null,
+      gpaAtTime: number | null,
       surveyResponses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -1343,6 +1380,7 @@ export type OnUpdateSurveyResponseSubscription = {
       createdAt: string | null,
       numTrue: number | null,
       numFalse: number | null,
+      gpaAtTime: number | null,
       surveyResponses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,
@@ -1389,6 +1427,7 @@ export type OnDeleteSurveyResponseSubscription = {
       createdAt: string | null,
       numTrue: number | null,
       numFalse: number | null,
+      gpaAtTime: number | null,
       surveyResponses:  {
         __typename: "ModelSurveyResponseConnection",
         nextToken: string | null,

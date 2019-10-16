@@ -11,6 +11,18 @@
         questions. We will only record the answers you do provide and use them to do an analysis</p>
       <div class="card p-5">
         <form (ngSubmit)="onSubmit(surveyForm.value)" #surveyForm="ngForm">
+
+          <!-- gpa -->
+          <div class="form-group row">
+            <label for="staticEmail" class="col-md-8 col-form-label">Please enter student's current GPA (4.0
+              Scale)</label>
+            <div>
+                <!-- <input  type="number" [(ngModel)]="gpa" #ctrl="ngModel" required> -->
+              <input type="number" class="form-control" id="gpa" name="gpa" ngModel>
+            </div>
+          </div>
+
+
           <!-- questions -->
           <div *ngFor="let question of question_list" class="form-group row">
             <label for="staticEmail" class="col-md-8 col-form-label">{{question['question']}}</label>
@@ -26,7 +38,12 @@
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+
+          <button type="submit" class="btn btn-primary" style="display: inline-block;">Submit</button>
+          <!-- error message -->
+          <div class="error-message">
+            <p>{{errorMessage}}</p>
+          </div>
         </form>
       </div>
     </div>

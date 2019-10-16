@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
   };
   public lineChartLabels = [];
-  public lineChartLegend = false;
+  public lineChartLegend = true;
   public lineChartData;
   public lineChartColors: Color[] = [
     { // red
@@ -71,7 +71,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#e81111',
       pointHoverBorderColor: '#e81111'
-    }
+    },
+    { // grey
+      backgroundColor: 'transparent',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    },
   ];
   // end line chart
 
@@ -142,9 +150,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
         return (a['createdAt'] < b['createdAt']) ? -1 : ((a['createdAt'] > b['createdAt']) ? 1 : 0);
       });
 
+      //line chart variiables - declare outside of surveys so tracker score is caluculated from all surveys
       let averageData = [];
+      let responseCount = 0;
+      let totalWeight = 0;
+      let gpas = [];
 
       for (const survey of surveys) {
+
+        console.log('survey', survey);
 
         //date taken
         let date = new Date(survey['createdAt']);
@@ -161,9 +175,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
         }
         this.lineChartLabels.push(monthString + '-' + dtString + '-' + year);
 
+        //gpa line
+        gpas.push(survey['gpaAtTime']);
+
         //loop through responses / questions to calculate average
-        let responseCount = 0;
-        let totalWeight = 0;
         for (const response of survey['surveyResponses']['items']) {
 
           //only add to weight if they answered true, otherwise there is no indication
@@ -274,16 +289,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
           );
         }
 
-        //bip
       });
 
       //line chart
-      this.lineChartData = [{ data: averageData }]
+      this.lineChartData = [{ data: averageData, label: 'Issue Indicator' }, { data: gpas, label: 'GPA' }];
 
       //survey table - reverse because we want to display the most recent first
       this.surveys_taken = this.surveys_taken.reverse();
 
-      // this.history = histories.get('bad');
       this.isLoading = false;
     });
   }
@@ -291,8 +304,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   async getStudents() {
     await API.graphql(graphqlOperation(queries.listStudents)).then(students => {
       this.student_list = students['data']['listStudents']['items'];
-      console.log('student_list', this.student_list);
-      console.log('this.studentService.getStudentInfo()', this.studentService.getStudentInfo());
 
       //set first student
       if (!this.studentService.getStudentInfo()) {
@@ -304,20 +315,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   expandRow(survey_id: string) {
-    console.log('button clicked', survey_id);
-    console.log(document.getElementById(survey_id));
     var row = document.getElementById(survey_id);
     if (row) {
       row.classList.toggle('expandable');
-    }
 
-    if (this.icon_shown == faAngleUp) {
-      this.icon_shown = faAngleDown;
+      if (this.icon_shown == faAngleUp) {
+        this.icon_shown = faAngleDown;
+      }
+      else {
+        this.icon_shown = faAngleUp;
+      }
     }
-    else {
-      this.icon_shown = faAngleUp;
-    }
-    // document.getElementById(survey_id).toggleClass("expandable");
   }
 
   openSidebar() {
