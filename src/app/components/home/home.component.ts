@@ -243,7 +243,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         //BIP Information and Trends
         let trend = '';
         let answers = this.questionIdToAnswerList.get(value['id']);
-        if (answers.length > 0) {
+        if (answers.length > 0 && value['id'] != '0c3b5522-2194-4aa2-b467-b2e36891773b') {
           if (answers[0] == 'false' && answers[answers.length - 1] == 'false') {
             trend = 'steadily_good';
             if (value['suggestionSteadyGood']) {
